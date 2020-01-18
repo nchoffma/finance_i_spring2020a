@@ -7,7 +7,6 @@ library(stringr)
 library(lubridate)
 inds <- read.csv("Industry49_data.csv", header = T)
 
-
 # Question 5 --------------------------------------------------------------
 
 # Clean the excess returns data
@@ -19,7 +18,7 @@ ers <- inds %>%
   mutate(industry = str_remove_all(industry, "eR_"),
          industry = str_remove_all(industry, "I_"))
 
-# a)
+# a) Expected return by industry
 exp_ers <- ers %>% 
   group_by(industry) %>% 
   summarise(
@@ -30,4 +29,12 @@ exp_ers <- ers %>%
 R_bar <- exp_ers[["r_bar"]] # get vector, which is what we're after
 names(R_bar) <- exp_ers[["industry"]] # want to keep track
 
-# b)
+# b) Variance-covariance matrix
+v_mat <- ers %>% 
+  pivot_wider(names_from = industry, values_from = eR) %>% 
+  select(-date) %>% 
+  var(use = "pairwise.complete.obs")
+
+v_mat <- v_mat * 12 # convert to annual
+
+# c) Sharpe ratio
