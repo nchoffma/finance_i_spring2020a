@@ -103,4 +103,16 @@ ggplot(eff_front, aes(p_sd, mus)) +
   ) + 
   theme(legend.position = "bottom")
 
-# TODO: wrap the above in a function
+# TODO: wrap the above in a function, so that it can quickly generate plots
+# TODO: add capability to allow for a risk-free asset
+
+# Question 7 --------------------------------------------------------------
+
+# Just replicating 5 and 6 for various subsets
+
+# Question 8 --------------------------------------------------------------
+
+industry_pairs <- expand.grid(industries, industries)
+names(industry_pairs) <- qc(ind1, ind2)
+industry_pairs <- filter(industry_pairs, ind1 != ind2) %>% 
+  arrange(ind1)
