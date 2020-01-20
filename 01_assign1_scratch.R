@@ -99,7 +99,7 @@ ggplot(eff_front, aes(p_sd, mus)) +
     title = "Efficient frontier",
     subtitle = paste0(N, " industries"),
     color = "Individual industries",
-    x = expression(sigma), y = expression(mu)
+    x = expression(sigma[p]), y = expression(mu[p])
   ) + 
   theme(legend.position = "bottom")
 
