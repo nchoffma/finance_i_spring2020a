@@ -45,7 +45,7 @@ sharpe <- R_bar / sds
 # Question 6 --------------------------------------------------------------
 
 # Initialize
-N <- 6 # number of industries
+N <- 7 # number of industries
 M <- 30 # number of mu values to show on efficient frontier
 industries <- names(R_bar)[names(R_bar) != "Market"]
 assets <- sample(industries, N)

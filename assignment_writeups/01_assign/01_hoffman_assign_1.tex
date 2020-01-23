@@ -1,6 +1,70 @@
-\documentclass[12pt]{article}
-\usepackage{geometry}
-\geometry{margin=1in}
+\documentclass[11pt]{article}
+\usepackage[margin = 1in]{geometry}
 \usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm} % for proof environment
+\usepackage{enumitem}
 \usepackage{graphicx}
+\usepackage{indentfirst}
+\usepackage{caption}
+\usepackage{lscape}
+\usepackage{multirow}
+\usepackage{array}
 
+\renewcommand{\labelenumii}{\alph*)}
+\newcommand{\w}{\omega}
+\newcommand{\p}{\prime}
+\newcommand{\one}{\mathbf{1}}
+\newcommand{\lagr}{\mathcal{L}}
+\newcommand{\inv}[1]{#1^{-1}}
+
+\begin{document}
+	
+\begin{flushleft}
+	Nick Hoffman \\
+	Finance I, Spring 2020 A \\
+	Assignment 1 \\
+\end{flushleft}
+
+\begin{enumerate}
+	\item 
+	\item 
+	\item 
+	\item 
+	\begin{gather*}
+	\min_\w \frac{1}{2}\w^\p V \w \\
+	\text{s.t.} \\
+	(1 - \w^\p \one)R_f + \w^\p \bar{R} \geq \mu
+	\end{gather*}
+	\begin{enumerate}
+		\item Wish to show that the solution to this problem can be written as 
+		\[\w = \gamma \w^*\]
+		where 
+		\begin{gather*}
+			\w^{*\p}\one = 1\text{, and} \\
+			\w^* = \alpha \w_R + (1 - \alpha)\w_1
+		\end{gather*}
+		with 
+		\begin{align*}
+		\w_R &= \frac{\inv{V}\bar{R}}{\one^\p \inv{V} \bar{R}} \\
+		\w_1 &= \frac{\inv{V} \one}{\one^\p \inv{V} \one}
+		\end{align*}
+		The Lagrangian for this problem is as follows:
+		\[\lagr = \frac{1}{2}\w^\p V \w + \lambda \big[\mu - (1 - \w^\p \one)R_f - \w^\p \bar{R}\big] \]
+		with first-order conditions
+		\begin{align}
+		V\w + \lambda(\one R_f - \bar{R}) &= \mu \label{foc_4_1}\\
+		(1 - \w^\p \one)R_f + \w^\p \bar{R} &\geq \mu \label{foc_4_2}
+		\end{align}
+		To begin, premultiply (\ref{foc_4_1}) by $ \inv{V} $ (assuming that $ V $ is invertible):
+		\[\w = \lambda \inv{V} \bar{R} - \lambda \inv{V} \one R_f\]
+		We can solve for $ \w $ as a function of $ \w_R $ and $ \w_1 $ as before:
+		\begin{align*}
+		\w &= \lambda \left[\left(\frac{\one^\p \inv{V} \bar{R}}{\one^\p \inv{V} \bar{R}}\right)\inv{V}\bar{R} - \left(\frac{\one^\p \inv{V} \one}{\one^\p \inv{V} \one}\right)\inv{V}\one^\p R_f\right] \\
+		&= \lambda \big[(\one^\p \inv{V}\bar{R})\w_R - (\one^\p \inv{V}\one R_f)\w_1\big]
+		\end{align*}
+		
+	\end{enumerate}
+\end{enumerate}
+
+\end{document}
