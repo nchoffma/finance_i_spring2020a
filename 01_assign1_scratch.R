@@ -260,17 +260,34 @@ ggplot(eff_front, aes(p_sd, mus)) +
 
 # Question 8 --------------------------------------------------------------
 
+# Get all combinations of industries
 industries <- names(R_bar)[names(R_bar) != "Market"]
 industry_pairs <- expand.grid(industries, industries)
 names(industry_pairs) <- qc(ind1, ind2)
 industry_pairs <- filter(industry_pairs, ind1 != ind2) %>% 
-  arrange(ind1)
+  arrange(ind1) %>% 
+  as.matrix()
 
+# Function to calculate portfolio weights for maximal Sharpe Ratio
 sharpe_ratio_opt <- function(assets){
+  N = length(assets)
   V = v_mat[assets, assets] # variance-covar
   V_inv = solve(V)
   R = R_bar[assets] # expected returns on assets
   one = rep(1.0, N)
+  Rf = 0.01
+  Rf_one = one * Rf
   
-  w_star_sharpe = 
+  w_star_sharpe = (V_inv %*% (R - Rf_one)) * 
+    as.numeric(1 / t(one) %*% V_inv %*% (R - Rf_one))
 }
+
+# How many involve no short selling?
+npair <- nrow(industry_pairs)
+opt_sharps <- 0L
+for (i in seq_len(npair)){
+  w_star_sharpe <- sharpe_ratio_opt(industry_pairs[i, ])
+  opt_sharps <- opt_sharps + all(w_star_sharpe >= 0)
+}
+
+sharpe_prob <- opt_sharps / npair # ~1/2
