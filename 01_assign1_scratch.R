@@ -123,7 +123,7 @@ efficient_front <- function(M = 30, assets = c(), N = 0,
 # Question 6 --------------------------------------------------------------
 
 # a)
-assets_a <- qc(Util, Txtls)
+assets_a <- qc(Util, Agric)
 out1 <- efficient_front(assets = assets_a, risk_free = F)
 eff_front <- out1$eff_front
 indiv_assets <- out1$indiv_assets
