@@ -15,12 +15,13 @@
 \newcommand{\w}{\omega}
 \newcommand{\p}{\prime}
 \newcommand{\one}{\mathbf{1}}
+\newcommand{\onep}{\mathbf{1}^\prime}
 \newcommand{\lagr}{\mathcal{L}}
 \newcommand{\inv}[1]{#1^{-1}}
 \newcommand{\ev}{\mathbb{E}}
+\renewcommand{\wp}{\omega^\prime}
 
 \begin{document}
-	
 \begin{flushleft}
 	Nick Hoffman \\
 	Finance I, Spring 2020 A \\
@@ -46,10 +47,70 @@
 		
 		By definition, 
 		\begin{align*}
-		cov(R^\p \w, R^\p \w) = \ev\left[\sum_{i = 1}^N \w_n \tilde{R}_n \cdot \sum_{i = 1}^N \w_n \tilde{R}_n\right] - \ev\left[\sum_{i = 1}^N \w_n \tilde{R}_n\right]^2
+		cov(R^\p \w, R^\p \w) &= \ev\left[\sum_{i = 1}^N \w_n \tilde{R}_n \cdot \sum_{i = 1}^N \w_n \tilde{R}_n\right] - \ev\left[\sum_{i = 1}^N \w_n \tilde{R}_n\right]^2 \\
+		&= \sum_{i = 1}^N \sum_{j = 1}^N \w_i \w_j \ev[R_i R_j] - \sum_{i = 1}^N \sum_{j = 1}^N \w_i \w_j \ev[R_i] \ev[R_j] \\
+		&= \sum_{i = 1}^N \sum_{j = 1}^N \w_i\w_j cov(R_i, R_j) \\
+		&= \w^\p V\w
 		\end{align*}
+		
+		\item $ cov(R^\p \w, R_n) = \w^\p V e_n $, where $ e_n = [0, \dots, 0, 1, 0, \dots, 0]^\p $, with 1 in the $ n^{th} $ position.
+		
+		Using the same definition for the covariance as above, 
+		\begin{align*}
+		cov(R^\p \w, R_n) &= \ev[R^\p \w R_n] - \ev[R^\p \w]\ev[R_n] \\
+		&= \sum_{i = 1}^N \w_i \big(\ev[R_i R_n] - \ev[R_i]\ev[R_n]\big) \\
+		&= \sum_{i = 1}^N \w_i cov(R_i, R_n)
+		\end{align*} 
+		The final sum above is the $ n^{th} $ entry of the matrix $ \w^\p V $, and thus $ cov(R^\p \w, R_n) = \w^\p V e_n $
+		
+		\item $ \frac{\partial V(R^\p \w)}{\partial \w_n} = 2 cov(R^\p \w, R_n) $
+		
+		As in part (c), 
+		\[V(R^\p \w) = \sum_{i = 1}^N \sum_{j = 1}^N \w_i \w_j cov(R_i, R_j)\]
+		Thus,
+
+		\[\frac{\partial V(R^\p \w)}{\partial \w_n} = 2 \sum_{i = 1}^N \w_i cov(R_i, R_n) = 2 cov(R^\p \w, R_n) \]
+		where the final equality follows from (d).
 	\end{enumerate}
-	\item 
+	\item The portfolio problem with risky assets is 
+	\begin{gather*}
+	\min_\w \frac{1}{2}\w^\p V \w \\
+	\text{s.t.} \\
+	\w^\p \bar{R} \geq \mu \\
+	\w^\p \one = 1
+	\end{gather*}
+	where $ \one $ is the $N$-vector with 1 in every element. The Lagrangean for this problem is
+	\[\lagr = \frac{1}{2}\wp V \w + \lambda_1\big[\mu - \wp\bar{R}\big] + \lambda_2\big[1 - \wp \one\big]\]
+	
+	with first-order conditions
+	\begin{align}
+	V\w &= \lambda_1\bar{R} - \lambda_2\one \label{foc_1_1} \\
+	\mu &= \wp \bar{R} \label{foc_1_2} \\
+	\wp \one &= 1 \label{foc_1_3}
+	\end{align}
+	To begin, premultiply (\ref{foc_1_1}) by $ \inv{V} $, yielding
+	\[\w = \lambda_1 \inv{V}\bar{R} + \lambda_2\inv{V}\one\]
+	Now, define the following two efficient portfolios:
+	\begin{align*}
+	\w_R &= \frac{\inv{V}\bar{R}}{\one^\p \inv{V} \bar{R}} \\
+	\w_1 &= \frac{\inv{V} \one}{\one^\p \inv{V} \one}
+	\end{align*}
+	Thus, the form for $ \w $ above can be transformed in the following way:
+	\begin{align*}
+	\w^* &= \lambda_1 \inv{V}\bar{R} + \lambda_2\inv{V}\one \\ 
+	&= \lambda_1\left(\frac{\one^\p \inv{V}\bar{R}}{\one^\p \inv{V}\bar{R}}\right)\inv{V}\bar{R} + \lambda_2\left(\frac{\one^\p \inv{V}\one}{\one^\p \inv{V}\one}\right)\inv{V}\one \\
+	&= \big(\lambda_1\one^\p \inv{V}\bar{R}\big)\w_R + \big(\lambda_2\one^\p \inv{V}\one\big)\w_1 \\
+	&\equiv \alpha \w_R + (1 - \alpha)\w_1
+	\end{align*}
+	
+	To show the final equality (i.e., that the weights on portfolios $ \w_R $ and $ w_1 $ sum to unity), we premultiply both sides by $ \one^\p $ and impose impose (\ref{foc_1_3}):
+	\[\onep \w^*= \big(\lambda_1\one^\p \inv{V}\bar{R}\big)\onep w_R + \big(\lambda_2\one^\p \inv{V}\one\big)\onep w_1 \]
+	Because $ \w^* $, $ \w_R $, and $ \w_1 $ are portfolios, the above implies that 
+	\[1 = \big(\lambda_1\one^\p \inv{V}\bar{R}\big) + \big(\lambda_2\one^\p \inv{V}\one\big)\]
+	To solve for $\alpha$, we impose (\ref{foc_1_2}):
+	\begin{align*}
+	\w^{*\p}\bar{R} = \mu &\implies 
+	\end{align*}
 	\item 
 	\item 
 	\begin{gather*}

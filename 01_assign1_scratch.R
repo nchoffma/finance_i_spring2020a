@@ -40,7 +40,7 @@ v_mat <- v_mat * 12 # convert to annual
 
 # c) Sharpe ratio
 sds <- sqrt(diag(v_mat)) # standard deviations
-sharpe <- R_bar / sds
+sharpe <-( R_bar - 0.01) / sds # should 
 
 # Function to calculate efficient frontier --------------------------------
 
@@ -64,7 +64,6 @@ efficient_front <- function(M = 30, assets = c(), N = 0,
   V_inv = solve(V)
   R = R_bar[assets] # expected returns on assets
   one = rep(1.0, N)
-  
   
   # Calculate efficient frontier portfolio weights
   if (risk_free){
@@ -128,6 +127,7 @@ out1 <- efficient_front(assets = assets_a, risk_free = F)
 eff_front <- out1$eff_front
 indiv_assets <- out1$indiv_assets
 
+theme_set(theme_bw())
 ggplot(eff_front, aes(p_sd, mus)) +
   geom_path() +
   geom_point(data = indiv_assets, aes(var, eR, color = indust)) +
