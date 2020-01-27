@@ -5,7 +5,10 @@ library(tidyverse)
 library(wrapr)
 library(stringr)
 library(lubridate)
+library(stargazer)
 inds <- read.csv("Industry49_data.csv", header = T)
+to_show <- scan("assignment_writeups/01_assign/inds_to_show.txt", 
+                what = "character")
 
 # Question 5 --------------------------------------------------------------
 
@@ -41,6 +44,19 @@ v_mat <- v_mat * 12 # convert to annual
 # c) Sharpe ratio
 sds <- sqrt(diag(v_mat)) # standard deviations
 sharpe <-( R_bar - 0.01) / sds # should 
+
+returns_data <- cbind.data.frame(
+  Industry = names(R_bar), 
+  excess_r = R_bar * 100, 
+  var = diag(v_mat) * 100,
+  stand_dev = sds * 100, 
+  sharpe = sharpe * 100
+)
+
+to_show <- to_show
+return_table_tex <- stargazer(filter(returns_data, Industry %in% to_show), 
+                              summary = F, rownames = F)
+write(return_table_tex, file = "assignment_writeups/01_assign/table_1_returns.txt")
 
 # Function to calculate efficient frontier --------------------------------
 
@@ -121,6 +137,8 @@ efficient_front <- function(M = 30, assets = c(), N = 0,
 
 # Question 6 --------------------------------------------------------------
 
+figpath <- "assignment_writeups/01_assign/"
+
 # a)
 assets_a <- qc(Util, Agric)
 out1 <- efficient_front(assets = assets_a, risk_free = F)
@@ -138,6 +156,7 @@ ggplot(eff_front, aes(p_sd, mus)) +
     x = expression(sigma[p]), y = expression(mu[p])
   ) +
   theme(legend.position = "bottom")
+ggsave(paste0(figpath, "plot_6a.eps"))
 
 # b)
 assets_b <- qc("Gold", "Clths", "Rubbr", "Drugs", "Util", "FabPr")
@@ -155,6 +174,7 @@ ggplot(eff_front, aes(p_sd, mus)) +
     x = expression(sigma[p]), y = expression(mu[p])
   ) +
   theme(legend.position = "bottom")
+ggsave(paste0(figpath, "plot_6b.eps"))
 
 # c)
 out1 <- efficient_front(assets = assets_a, risk_free = T)
@@ -171,10 +191,15 @@ ggplot(eff_front, aes(p_sd, mus)) +
     x = expression(sigma[p]), y = expression(mu[p])
   ) +
   theme(legend.position = "bottom")
+ggsave(paste0(figpath, "plot_6c.eps"))
+
 
 out1 <- efficient_front(assets = assets_b, risk_free = T)
 eff_front <- out1$eff_front
 indiv_assets <- out1$indiv_assets
+
+# example_weights <- stargazer(eff_front, summary = F, rownames = F)
+# write(example_weights, file = "assignment_writeups/01_assign/table_3_weights.txt")
 
 ggplot(eff_front, aes(p_sd, mus)) +
   geom_path() +
@@ -186,87 +211,16 @@ ggplot(eff_front, aes(p_sd, mus)) +
     x = expression(sigma[p]), y = expression(mu[p])
   ) +
   theme(legend.position = "bottom")
-
-
-# Question 7 --------------------------------------------------------------
-
-# Repeat question 6, with different subsets of data
-n_assets_a <- 2
-n_assets_b <- 6
-
-# a)
-out1 <- efficient_front(N = n_assets_a, risk_free = F)
-eff_front <- out1$eff_front
-indiv_assets <- out1$indiv_assets
-
-ggplot(eff_front, aes(p_sd, mus)) +
-  geom_path() +
-  geom_point(data = indiv_assets, aes(var, eR, color = indust)) +
-  labs(
-    title = "Efficient frontier",
-    subtitle = paste0(n_assets_a, " industries, with risk-free asset"),
-    color = "Individual industries",
-    x = expression(sigma[p]), y = expression(mu[p])
-  ) +
-  theme(legend.position = "bottom")
-
-# b)
-out1 <- efficient_front(N = n_assets_b, risk_free = F)
-eff_front <- out1$eff_front
-indiv_assets <- out1$indiv_assets
-
-ggplot(eff_front, aes(p_sd, mus)) +
-  geom_path() +
-  geom_point(data = indiv_assets, aes(var, eR, color = indust)) +
-  labs(
-    title = "Efficient frontier",
-    subtitle = paste0(n_assets_b, " industries, with risk-free asset"),
-    color = "Individual industries",
-    x = expression(sigma[p]), y = expression(mu[p])
-  ) +
-  theme(legend.position = "bottom")  
-
-# c)
-out1 <- efficient_front(N = n_assets_a, risk_free = T)
-eff_front <- out1$eff_front
-indiv_assets <- out1$indiv_assets
-
-ggplot(eff_front, aes(p_sd, mus)) +
-  geom_path() +
-  geom_point(data = indiv_assets, aes(var, eR, color = indust)) +
-  labs(
-    title = "Efficient frontier",
-    subtitle = paste0(n_assets_a, " industries, with risk-free asset"),
-    color = "Individual industries",
-    x = expression(sigma[p]), y = expression(mu[p])
-  ) +
-  theme(legend.position = "bottom")
-
-# d)
-out1 <- efficient_front(N = n_assets_b, risk_free = T)
-eff_front <- out1$eff_front
-indiv_assets <- out1$indiv_assets
-
-ggplot(eff_front, aes(p_sd, mus)) +
-  geom_path() +
-  geom_point(data = indiv_assets, aes(var, eR, color = indust)) +
-  labs(
-    title = "Efficient frontier",
-    subtitle = paste0(n_assets_b, " industries, with risk-free asset"),
-    color = "Individual industries",
-    x = expression(sigma[p]), y = expression(mu[p])
-  ) +
-  theme(legend.position = "bottom")
+ggsave(paste0(figpath, "plot_6d.eps"))
 
 # Question 8 --------------------------------------------------------------
 
+# Moved before q7, to avoid any confusion with what Rbar is
+
 # Get all combinations of industries
 industries <- names(R_bar)[names(R_bar) != "Market"]
-industry_pairs <- expand.grid(industries, industries)
-names(industry_pairs) <- qc(ind1, ind2)
-industry_pairs <- filter(industry_pairs, ind1 != ind2) %>% 
-  arrange(ind1) %>% 
-  as.matrix()
+industry_pairs <- t(combn(industries, m = 2))
+colnames(industry_pairs) <- qc(ind1, ind2)
 
 # Function to calculate portfolio weights for maximal Sharpe Ratio
 sharpe_ratio_opt <- function(assets){
@@ -291,3 +245,118 @@ for (i in seq_len(npair)){
 }
 
 sharpe_prob <- opt_sharps / npair # ~1/2
+
+# Question 7 --------------------------------------------------------------
+
+# Repeat question 6, with different subsets of data
+# Breaking rules here with copy/paste, but so be it
+# Filtering post-2000
+
+# a) Expected return by industry
+exp_ers <- ers %>% 
+  filter(year(date) >= 2000) %>% 
+  group_by(industry) %>% 
+  summarise(
+    r_bar = mean(eR, na.rm = T),
+    r_bar = r_bar * 12 + 0.01 # convert to ann, add RfR
+  )
+
+R_bar <- exp_ers[["r_bar"]] # get vector, which is what we're after
+names(R_bar) <- exp_ers[["industry"]] # want to keep track
+
+# b) Variance-covariance matrix
+v_mat <- ers %>% 
+  pivot_wider(names_from = industry, values_from = eR) %>% 
+  select(-date) %>% 
+  as.matrix() %>% 
+  cov(use = "complete.obs")
+
+v_mat <- v_mat * 12 # convert to annual
+
+# c) Sharpe ratio
+sds <- sqrt(diag(v_mat)) # standard deviations
+sharpe <-( R_bar - 0.01) / sds # should 
+
+returns_data <- cbind.data.frame(
+  Industry = names(R_bar), 
+  excess_r = R_bar * 100, 
+  var = diag(v_mat) * 100,
+  stand_dev = sds * 100, 
+  sharpe = sharpe * 100
+)
+
+to_show <- to_show
+return_table_tex <- stargazer(filter(returns_data, Industry %in% to_show), 
+                              summary = F, rownames = F)
+write(return_table_tex, file = "assignment_writeups/01_assign/table_2_returns.txt")
+
+# a)
+assets_a <- qc(Util, Agric)
+out1 <- efficient_front(assets = assets_a, risk_free = F)
+eff_front <- out1$eff_front
+indiv_assets <- out1$indiv_assets
+
+ggplot(eff_front, aes(p_sd, mus)) +
+  geom_path() +
+  geom_point(data = indiv_assets, aes(var, eR, color = indust)) +
+  labs(
+    title = "Efficient frontier, post-2000",
+    subtitle = paste0(length(assets_a), " industries, no risk-free asset"),
+    color = "Individual industries",
+    x = expression(sigma[p]), y = expression(mu[p])
+  ) +
+  theme(legend.position = "bottom")
+ggsave(paste0(figpath, "plot_7a.eps"))
+
+# b)
+assets_b <- qc("Gold", "Clths", "Rubbr", "Drugs", "Util", "FabPr")
+out1 <- efficient_front(assets = assets_b, risk_free = F)
+eff_front <- out1$eff_front
+indiv_assets <- out1$indiv_assets
+
+ggplot(eff_front, aes(p_sd, mus)) +
+  geom_path() +
+  geom_point(data = indiv_assets, aes(var, eR, color = indust)) +
+  labs(
+    title = "Efficient frontier, post-2000",
+    subtitle = paste0(length(assets_b), " industries, no risk-free asset"),
+    color = "Individual industries",
+    x = expression(sigma[p]), y = expression(mu[p])
+  ) +
+  theme(legend.position = "bottom")
+ggsave(paste0(figpath, "plot_7b.eps"))
+
+# c)
+out1 <- efficient_front(assets = assets_a, risk_free = T)
+eff_front <- out1$eff_front
+indiv_assets <- out1$indiv_assets
+
+ggplot(eff_front, aes(p_sd, mus)) +
+  geom_path() +
+  geom_point(data = indiv_assets, aes(var, eR, color = indust)) +
+  labs(
+    title = "Efficient frontier, post-2000",
+    subtitle = paste0(length(assets_a), " industries, with risk-free asset"),
+    color = "Individual industries",
+    x = expression(sigma[p]), y = expression(mu[p])
+  ) +
+  theme(legend.position = "bottom")
+ggsave(paste0(figpath, "plot_7c.eps"))
+
+
+out1 <- efficient_front(assets = assets_b, risk_free = T)
+eff_front <- out1$eff_front
+indiv_assets <- out1$indiv_assets
+
+ggplot(eff_front, aes(p_sd, mus)) +
+  geom_path() +
+  geom_point(data = indiv_assets, aes(var, eR, color = indust)) +
+  labs(
+    title = "Efficient frontier, post-2000",
+    subtitle = paste0(length(assets_b), " industries, with risk-free asset"),
+    color = "Individual industries",
+    x = expression(sigma[p]), y = expression(mu[p])
+  ) +
+  theme(legend.position = "bottom")
+ggsave(paste0(figpath, "plot_7d.eps"))
+
