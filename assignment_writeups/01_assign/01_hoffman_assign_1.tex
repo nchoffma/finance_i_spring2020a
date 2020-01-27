@@ -33,7 +33,21 @@
 		\item $ \ev[\w ^\p R ] = \w^\p \bar{R} $, where $\bar{R}$ is the $ N\times 1 $ vector of expected returns.
 		\[\ev[\w^\p \bar{R}] = \ev\left[\sum_{i = 1}^{N}\tilde{R}_n \w_n\right] = \sum_{i = 1}^N \w_n \ev[\tilde{R}_n] = \w^\p \bar{R} \]
 		
-		\item 
+		\item $ \frac{\partial \ev[R^\p \w]}{\partial \w_n} = R_n $, or the entire vector $  \frac{\partial \ev[R^\p \w]}{\partial \w} = R $
+		
+		As in (a),
+		\[\ev[\w^\p \bar{R}] =\sum_{i = 1}^N \w_n \ev[\tilde{R}_n]\]
+		and thus
+		\[\frac{\partial \ev[R^\p \w]}{\partial \w_n} = \ev[\tilde{R}_n] = \bar{R}\]
+		and so in vector form,
+		\[ \frac{\partial \ev[R^\p \w]}{\partial \w} = R\]
+		
+		\item $ V(R^\p \w) = cov(R^\p \w, R^\p \w) $ where $ V $ is the variance-covariance matrix of returns, with typical element $ \sigma_{i,j} = cov(\tilde{R}_i, \tilde{R}_j) $.
+		
+		By definition, 
+		\begin{align*}
+		cov(R^\p \w, R^\p \w) = \ev\left[\sum_{i = 1}^N \w_n \tilde{R}_n \cdot \sum_{i = 1}^N \w_n \tilde{R}_n\right] - \ev\left[\sum_{i = 1}^N \w_n \tilde{R}_n\right]^2
+		\end{align*}
 	\end{enumerate}
 	\item 
 	\item 
