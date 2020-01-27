@@ -190,7 +190,7 @@ ggplot(eff_front, aes(p_sd, mus)) +
 
 # Question 7 --------------------------------------------------------------
 
-# Repeat question 6, with randomly selected industries
+# Repeat question 6, with different subsets of data
 n_assets_a <- 2
 n_assets_b <- 6
 

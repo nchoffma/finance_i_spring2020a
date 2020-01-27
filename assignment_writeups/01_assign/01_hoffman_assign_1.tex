@@ -103,35 +103,41 @@
 	&\equiv \alpha \w_R + (1 - \alpha)\w_1
 	\end{align*}
 	
-	To show the final equality (i.e., that the weights on portfolios $ \w_R $ and $ w_1 $ sum to unity), we premultiply both sides by $ \one^\p $ and impose impose (\ref{foc_1_3}):
+	To show the final equality (i.e., that the weights on portfolios $ \w_R $ and $ w_1 $ sum to unity), we premultiply both sides by $ \one^\p $ and impose  (\ref{foc_1_3}):
 	\[\onep \w^*= \big(\lambda_1\one^\p \inv{V}\bar{R}\big)\onep w_R + \big(\lambda_2\one^\p \inv{V}\one\big)\onep w_1 \]
 	Because $ \w^* $, $ \w_R $, and $ \w_1 $ are portfolios, the above implies that 
 	\[1 = \big(\lambda_1\one^\p \inv{V}\bar{R}\big) + \big(\lambda_2\one^\p \inv{V}\one\big)\]
 	To solve for $\alpha$, we impose (\ref{foc_1_2}):
 	\begin{align*}
-	\w^{*\p}\bar{R} = \mu &\implies 
+	\w^{*\p}\bar{R} = \mu &\implies \alpha \w_R^\p \bar{R} + (1 - \alpha) \w_1^\p \bar{R} = \mu \\
+	& \implies \alpha = \frac{\mu - \w_1^\p \bar{R}}{\w_R^\p \bar{R} - \w_1^\p \bar{R}}
 	\end{align*}
-	\item 
-	\item 
+	
+	\item To find the Global Minimum Variance (GMV) portfolio, the problem is similar:
+	\begin{gather*}
+	\min_\w \frac{1}{2}\w^\p V \w \\
+	\text{s.t.} \\
+	\w^\p \one = 1
+	\end{gather*}
+	
+	The Lagrangean for this problem is 
+	\[\lagr = \frac{1}{2} \wp V \w + \lambda[1 - \wp \one ]\]
+	From the first-order condition for $\omega$, we can use the same method as in question 2:
+	\begin{align*}
+	\w^* &= \lambda \inv{V} \one  \\
+	&= \lambda\left(\frac{\one^\p \inv{V}\one}{\one^\p \inv{V}\one}\right)\inv{V}\one \\
+	&= \big(\lambda \onep \inv{V}\one \big)\w_1
+	\end{align*}
+	Because $ \w $ and $ \w_1 $ are both portfolios, premultiplying the final line above by $ \onep $ shows that $ (\lambda \onep \inv{V}\one) = 1 $. Thus, $ \w_1 $ is the GMV portfolio
+	
+	\item With both risky assets and one risk-free asset, the problem becomes
 	\begin{gather*}
 	\min_\w \frac{1}{2}\w^\p V \w \\
 	\text{s.t.} \\
 	(1 - \w^\p \one)R_f + \w^\p \bar{R} \geq \mu
 	\end{gather*}
 	\begin{enumerate}
-		\item Wish to show that the solution to this problem can be written as 
-		\[\w = \gamma \w^*\]
-		where 
-		\begin{gather*}
-			\w^{*\p}\one = 1\text{, and} \\
-			\w^* = \alpha \w_R + (1 - \alpha)\w_1
-		\end{gather*}
-		with 
-		\begin{align*}
-		\w_R &= \frac{\inv{V}\bar{R}}{\one^\p \inv{V} \bar{R}} \\
-		\w_1 &= \frac{\inv{V} \one}{\one^\p \inv{V} \one}
-		\end{align*}
-		The Lagrangian for this problem is as follows:
+		\item The Lagrangian for this problem is as follows:
 		\[\lagr = \frac{1}{2}\w^\p V \w + \lambda \big[\mu - (1 - \w^\p \one)R_f - \w^\p \bar{R}\big] \]
 		with first-order conditions
 		\begin{align}
@@ -139,13 +145,40 @@
 		(1 - \w^\p \one)R_f + \w^\p \bar{R} &\geq \mu \label{foc_4_2}
 		\end{align}
 		To begin, premultiply (\ref{foc_4_1}) by $ \inv{V} $ (assuming that $ V $ is invertible):
-		\[\w = \lambda \inv{V} \bar{R} - \lambda \inv{V} \one R_f\]
-		We can solve for $ \w $ as a function of $ \w_R $ and $ \w_1 $ as before:
-		\begin{align*}
-		\w &= \lambda \left[\left(\frac{\one^\p \inv{V} \bar{R}}{\one^\p \inv{V} \bar{R}}\right)\inv{V}\bar{R} - \left(\frac{\one^\p \inv{V} \one}{\one^\p \inv{V} \one}\right)\inv{V}\one^\p R_f\right] \\
-		&= \lambda \big[(\one^\p \inv{V}\bar{R})\w_R - (\one^\p \inv{V}\one R_f)\w_1\big]
-		\end{align*}
+
+		\begin{equation}\label{step2_4}
+		\w = \lambda \inv{V} \big(\bar{R} - \one R_f\big)
+		\end{equation}
 		
+		Similarly, from (\ref{foc_4_2}), 
+		\[\big(\bar{R} - \one R_f\big)\wp = \mu - R_f\]
+		Thus, premultiplying (\ref{step2_4}) by $ (\bar{R} - \one R_f) $ gives
+		\[\lambda\big(\bar{R} - \one R_f\big) \inv{V} \big(\bar{R} - \one R_f\big)\]
+		and thus
+		\[\lambda = \frac{\mu - R_f}{(\bar{R} - \one R_f\big) \inv{V} \big(\bar{R} - \one R_f )}\]
+		Therefore, the optimal $ \w $ is given by 
+		\[\w = \frac{\mu - R_f}{(\bar{R} - \one R_f\big) \inv{V} \big(\bar{R} - \one R_f )} \inv{V} \big(\bar{R} - \one R_f\big) \]
+		
+		\item To verify that the efficient frontier is linear in $ \sigma_p $, note that the variance of this portfolio is given by 
+		\begin{align*}
+		\wp V\w &= \frac{\mu - R_f}{(\bar{R} - \one R_f\big) \inv{V} \big(\bar{R} - \one R_f )} \big(\bar{R} - \one R_f\big)^\p \inv{V} V \frac{\mu - R_f}{(\bar{R} - \one R_f\big) \inv{V} \big(\bar{R} - \one R_f )} \inv{V} \big(\bar{R} - \one R_f\big) \\
+		&= \frac{(\mu - R_f)^2}{\inv{V} \big(\bar{R} - \one R_f\big)}
+		\end{align*}
+		And thus the variance is 
+		\[\sigma_p = \sqrt{\wp V \w} = \frac{|\mu - R_f}{\sqrt{\inv{V} \big(\bar{R} - \one R_f\big)}}\]
+		Thus, solving for the return $ \mu_p $ gives
+		\[\mu_p = R_f \pm \sigma_p \sqrt{\inv{V} \big(\bar{R} - \one R_f\big)}\]
+		Thus, the portfolio return is linear in the variance, and thus the efficient frontier is linear. 
+		
+		\item The optimal Sharpe Ratio portfolio is the portfolio $ \w $ which solves
+		\[\max_\w \frac{\wp\bar{R} - R_f}{\sqrt{\wp V \w}}\]
+		The first-order condition for this problem is 
+		\[\frac{d}{d\w} = -\frac{1}{2}(\wp \bar{R}) - R_f (\wp V \w)^{-\frac{3}{2}} V\w + \bar{R}(\wp V \w)^{-\frac{1}{2}} = 0 \]
+		
+		The portfolio solving this problem is 
+		\[\w^* = \frac{\inv{V}\big(\bar{R} - \one R_f\big)}{\onep \inv{V} \big(\bar{R} - \one R_f\big)} \]
+		
+		This is the portfolio where, given $ N $ risky assets, the efficient frontier for the assets is tangent to the efficient frontier for the risky assets plus a risk free asset. Thus, this portfolio is also the efficient portfolio that includes only risky assets, when both risky and risk-free assets are available. 
 	\end{enumerate}
 \end{enumerate}
 
