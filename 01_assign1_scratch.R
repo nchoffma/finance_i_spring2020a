@@ -47,14 +47,13 @@ sharpe <-( R_bar - 0.01) / sds # should
 
 returns_data <- cbind.data.frame(
   Industry = names(R_bar), 
-  excess_r = R_bar * 100, 
+  excess_r = (R_bar - 0.01) * 100, 
   var = diag(v_mat) * 100,
   stand_dev = sds * 100, 
   sharpe = sharpe * 100
 )
 
-to_show <- to_show
-return_table_tex <- stargazer(filter(returns_data, Industry %in% to_show), 
+return_table_tex <- stargazer(returns_data, 
                               summary = F, rownames = F)
 write(return_table_tex, file = "assignment_writeups/01_assign/table_1_returns.txt")
 
@@ -279,14 +278,13 @@ sharpe <-( R_bar - 0.01) / sds # should
 
 returns_data <- cbind.data.frame(
   Industry = names(R_bar), 
-  excess_r = R_bar * 100, 
+  excess_r = (R_bar - 0.01) * 100, 
   var = diag(v_mat) * 100,
   stand_dev = sds * 100, 
   sharpe = sharpe * 100
 )
 
-to_show <- to_show
-return_table_tex <- stargazer(filter(returns_data, Industry %in% to_show), 
+return_table_tex <- stargazer(returns_data, 
                               summary = F, rownames = F)
 write(return_table_tex, file = "assignment_writeups/01_assign/table_2_returns.txt")
 

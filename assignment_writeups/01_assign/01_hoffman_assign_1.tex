@@ -11,6 +11,8 @@
 \usepackage{multirow}
 \usepackage{array}
 \usepackage{subcaption} % caption the subfigures
+\usepackage{setspace}
+\usepackage[round]{natbib}
 
 \renewcommand{\labelenumii}{\alph*)}
 \newcommand{\w}{\omega}
@@ -160,12 +162,15 @@
 		Therefore, the optimal $ \w $ is given by 
 		\[\w = \frac{\mu - R_f}{(\bar{R} - \one R_f\big) \inv{V} \big(\bar{R} - \one R_f )} \inv{V} \big(\bar{R} - \one R_f\big) \]
 		
+		In order to verify that this $\omega$ can be written as $ \gamma \w^* $, we note that by construction, $ \gamma \w^{*\p} = \gamma $, and thus 
+		\[\gamma = \frac{\mu - R_f}{\big(\bar{R} - \one R_f\big)^\p \inv{V}\big(\bar{R} - \one R_f\big)} \one^\p \inv{V}\big(\bar{R} - \one R_f\big)\]
+		
 		\item To verify that the efficient frontier is linear in $ \sigma_p $, note that the variance of this portfolio is given by 
 		\begin{align*}
 		\wp V\w &= \frac{\mu - R_f}{(\bar{R} - \one R_f\big) \inv{V} \big(\bar{R} - \one R_f )} \big(\bar{R} - \one R_f\big)^\p \inv{V} V \frac{\mu - R_f}{(\bar{R} - \one R_f\big) \inv{V} \big(\bar{R} - \one R_f )} \inv{V} \big(\bar{R} - \one R_f\big) \\
-		&= \frac{(\mu - R_f)^2}{\inv{V} \big(\bar{R} - \one R_f\big)}
+		&= \frac{(\mu - R_f)^2}{\big(\bar{R} - \one R_f\big)^\p \inv{V} \big(\bar{R} - \one R_f\big)}
 		\end{align*}
-		And thus the variance is 
+		And thus the standard deviation is 
 		\[\sigma_p = \sqrt{\wp V \w} = \frac{|\mu - R_f}{\sqrt{\inv{V} \big(\bar{R} - \one R_f\big)}}\]
 		Thus, solving for the return $ \mu_p $ gives
 		\[\mu_p = R_f \pm \sigma_p \sqrt{\inv{V} \big(\bar{R} - \one R_f\big)}\]
@@ -182,39 +187,67 @@
 		This is the portfolio where, given $ N $ risky assets, the efficient frontier for the assets is tangent to the efficient frontier for the risky assets plus a risk free asset. Thus, this portfolio is also the efficient portfolio that includes only risky assets, when both risky and risk-free assets are available. 
 	\end{enumerate}
 
-	\item The excess returns, variances, standard deviations, and Sharpe ratios for twenty of the industries in the data are shown here:
+	\item The excess returns, variances, standard deviations, and Sharpe ratios for the industries in the data are shown in Table \ref{table_1_returns}:
 	
-	
-	% Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
-	% Date and time: Mon, Jan 27, 2020 - 15:57:22
 	\begin{table}[!htbp] \centering 
-		\caption{Selected Industries, Full Sample} 
-		\label{} 
+		\footnotesize
+		\caption{Returns Data, Full Sample} 
+		\label{table_1_returns} 
 		\begin{tabular}{@{\extracolsep{5pt}} lcccc} 
 			\\[-1.8ex]\hline 
 			\hline \\[-1.8ex] 
 			Industry & Excess Return & V & $ \sigma $ & Sharpe \\ 
 			\hline \\[-1.8ex] 
-			Agric & $4.288$ & $5.477$ & $23.402$ & $14.051$ \\ 
-			Autos & $3.679$ & $5.156$ & $22.706$ & $11.800$ \\ 
-			Boxes & $6.114$ & $4.784$ & $21.873$ & $23.382$ \\ 
-			Clths & $7.086$ & $4.965$ & $22.281$ & $27.312$ \\ 
-			Cnstr & $5.058$ & $4.656$ & $21.577$ & $18.805$ \\ 
-			Coal & $2.349$ & $7.407$ & $27.216$ & $4.958$ \\ 
-			ElcEq & $7.167$ & $2.634$ & $16.229$ & $37.998$ \\ 
-			Food & $7.965$ & $3.390$ & $18.412$ & $37.828$ \\ 
-			Fun & $9.075$ & $2.985$ & $17.277$ & $46.735$ \\ 
-			Guns & $8.408$ & $4.416$ & $21.014$ & $35.251$ \\ 
-			Hardw & $5.550$ & $6.558$ & $25.609$ & $17.766$ \\ 
-			Oil & $6.350$ & $3.813$ & $19.527$ & $27.397$ \\ 
-			PerSv & $2.403$ & $5.429$ & $23.299$ & $6.023$ \\ 
-			RlEst & $1.309$ & $3.987$ & $19.968$ & $1.548$ \\ 
-			Smoke & $9.989$ & $6.126$ & $24.751$ & $36.319$ \\ 
-			Softw & $1.129$ & $4.038$ & $20.095$ & $0.642$ \\ 
-			Steel & $1.126$ & $4.152$ & $20.376$ & $0.619$ \\ 
-			Txtls & $5.489$ & $3.670$ & $19.157$ & $23.431$ \\ 
-			Util & $5.983$ & $7.262$ & $26.949$ & $18.492$ \\ 
-			Whlsl & $6.587$ & $5.807$ & $24.098$ & $23.184$ \\ 
+			Aero & $7.046$ & $2.479$ & $15.746$ & $44.751$ \\ 
+			Agric & $3.288$ & $5.477$ & $23.402$ & $14.051$ \\ 
+			Autos & $2.679$ & $5.156$ & $22.706$ & $11.800$ \\ 
+			Banks & $5.365$ & $7.210$ & $26.851$ & $19.979$ \\ 
+			Beer & $7.040$ & $6.610$ & $25.711$ & $27.383$ \\ 
+			BldMt & $4.980$ & $3.231$ & $17.974$ & $27.705$ \\ 
+			Books & $4.264$ & $6.261$ & $25.022$ & $17.042$ \\ 
+			Boxes & $5.114$ & $4.784$ & $21.873$ & $23.382$ \\ 
+			BusSv & $5.526$ & $3.677$ & $19.175$ & $28.819$ \\ 
+			Chems & $4.366$ & $4.938$ & $22.223$ & $19.646$ \\ 
+			Chips & $4.399$ & $2.368$ & $15.389$ & $28.584$ \\ 
+			Clths & $6.086$ & $4.965$ & $22.281$ & $27.312$ \\ 
+			Cnstr & $4.058$ & $4.656$ & $21.577$ & $18.805$ \\ 
+			Coal & $1.349$ & $7.407$ & $27.216$ & $4.958$ \\ 
+			Drugs & $6.651$ & $4.185$ & $20.457$ & $32.509$ \\ 
+			ElcEq & $6.167$ & $2.634$ & $16.229$ & $37.998$ \\ 
+			FabPr & $0.961$ & $5.273$ & $22.964$ & $4.185$ \\ 
+			Fin & $6.390$ & $7.963$ & $28.219$ & $22.643$ \\ 
+			Food & $6.965$ & $3.390$ & $18.412$ & $37.828$ \\ 
+			Fun & $8.075$ & $2.985$ & $17.277$ & $46.735$ \\ 
+			Gold & $0.727$ & $3.898$ & $19.743$ & $3.685$ \\ 
+			Guns & $7.408$ & $4.416$ & $21.014$ & $35.251$ \\ 
+			Hardw & $4.550$ & $6.558$ & $25.609$ & $17.766$ \\ 
+			Hlth & $3.795$ & $4.800$ & $21.909$ & $17.320$ \\ 
+			Hshld & $5.587$ & $6.316$ & $25.132$ & $22.230$ \\ 
+			Insur & $5.872$ & $6.467$ & $25.430$ & $23.090$ \\ 
+			LabEq & $5.639$ & $5.029$ & $22.426$ & $25.144$ \\ 
+			Mach & $4.883$ & $4.874$ & $22.077$ & $22.118$ \\ 
+			Market & $5.237$ & $5.832$ & $24.150$ & $21.686$ \\ 
+			Meals & $6.574$ & $13.402$ & $36.608$ & $17.957$ \\ 
+			MedEq & $7.780$ & $7.115$ & $26.674$ & $29.168$ \\ 
+			Mines & $4.916$ & $14.067$ & $37.506$ & $13.108$ \\ 
+			Oil & $5.350$ & $3.813$ & $19.527$ & $27.397$ \\ 
+			Other & $0.689$ & $1.947$ & $13.954$ & $4.938$ \\ 
+			Paper & $4.974$ & $2.668$ & $16.335$ & $30.454$ \\ 
+			PerSv & $1.403$ & $5.429$ & $23.299$ & $6.023$ \\ 
+			RlEst & $0.309$ & $3.987$ & $19.968$ & $1.548$ \\ 
+			Rtail & $6.664$ & $6.323$ & $25.146$ & $26.500$ \\ 
+			Rubbr & $5.899$ & $13.098$ & $36.191$ & $16.301$ \\ 
+			Ships & $4.682$ & $7.057$ & $26.565$ & $17.626$ \\ 
+			Smoke & $8.989$ & $6.126$ & $24.751$ & $36.319$ \\ 
+			Soda & $6.965$ & $3.663$ & $19.139$ & $36.393$ \\ 
+			Softw & $0.129$ & $4.038$ & $20.095$ & $0.642$ \\ 
+			Steel & $0.126$ & $4.152$ & $20.376$ & $0.619$ \\ 
+			Telcm & $4.960$ & $3.658$ & $19.126$ & $25.936$ \\ 
+			Toys & $2.110$ & $4.484$ & $21.176$ & $9.964$ \\ 
+			Trans & $5.036$ & $4.505$ & $21.224$ & $23.728$ \\ 
+			Txtls & $4.489$ & $3.670$ & $19.157$ & $23.431$ \\ 
+			Util & $4.983$ & $7.262$ & $26.949$ & $18.492$ \\ 
+			Whlsl & $5.587$ & $5.807$ & $24.098$ & $23.184$ \\ 
 			\hline \\[-1.8ex] 
 		\end{tabular} 
 	\end{table} 
@@ -288,9 +321,10 @@
 		
 	\end{enumerate}
 	
-	\item The following table and figure show the same exercise as in questions 5 and 6, but with the data limited to returns post-2000. 
+	\item Table \ref{table_3} and Figure \ref{fig3} show the same exercise as in questions 5 and 6, but with the data limited to returns post-2000. 
 	
 	\begin{table}[!htbp] \centering 
+		\footnotesize
 		\caption{Returns Data, Post-2000} 
 		\label{table_3} 
 		\begin{tabular}{@{\extracolsep{5pt}} lcccc} 
@@ -298,31 +332,62 @@
 			\hline \\[-1.8ex] 
 			Industry & Excess Return & V & $\sigma_p$ & Sharpe \\ 
 			\hline \\[-1.8ex] 
-			Agric & $6.856$ & $5.477$ & $23.402$ & $25.022$ \\ 
-			Autos & $1.330$ & $5.156$ & $22.706$ & $1.452$ \\ 
-			Boxes & $8.918$ & $4.784$ & $21.873$ & $36.198$ \\ 
-			Clths & $11.370$ & $4.965$ & $22.281$ & $46.542$ \\ 
-			Cnstr & $8.701$ & $4.656$ & $21.577$ & $35.692$ \\ 
-			Coal & $$-$2.351$ & $7.407$ & $27.216$ & $$-$12.311$ \\ 
-			ElcEq & $4.997$ & $2.634$ & $16.229$ & $24.629$ \\ 
-			Food & $7.941$ & $3.390$ & $18.412$ & $37.695$ \\ 
-			Fun & $9.808$ & $2.985$ & $17.277$ & $50.979$ \\ 
-			Guns & $15.340$ & $4.416$ & $21.014$ & $68.237$ \\ 
-			Hardw & $1.721$ & $6.558$ & $25.609$ & $2.815$ \\ 
-			Oil & $5.558$ & $3.813$ & $19.527$ & $23.344$ \\ 
-			PerSv & $5.130$ & $5.429$ & $23.299$ & $17.728$ \\ 
-			RlEst & $5.544$ & $3.987$ & $19.968$ & $22.755$ \\ 
-			Smoke & $14.890$ & $6.126$ & $24.751$ & $56.118$ \\ 
-			Softw & $3.779$ & $4.038$ & $20.095$ & $13.830$ \\ 
-			Steel & $$-$0.392$ & $4.152$ & $20.376$ & $$-$6.834$ \\ 
-			Txtls & $6.396$ & $3.670$ & $19.157$ & $28.166$ \\ 
-			Util & $8.661$ & $7.262$ & $26.949$ & $28.429$ \\ 
-			Whlsl & $7.201$ & $5.807$ & $24.098$ & $25.732$ \\ 
+			Aero & $9.318$ & $2.479$ & $15.746$ & $59.176$ \\ 
+			Agric & $5.856$ & $5.477$ & $23.402$ & $25.022$ \\ 
+			Autos & $0.330$ & $5.156$ & $22.706$ & $1.452$ \\ 
+			Banks & $4.048$ & $7.210$ & $26.851$ & $15.076$ \\ 
+			Beer & $6.884$ & $6.610$ & $25.711$ & $26.776$ \\ 
+			BldMt & $6.656$ & $3.231$ & $17.974$ & $37.033$ \\ 
+			Books & $$-$0.583$ & $6.261$ & $25.022$ & $$-$2.332$ \\ 
+			Boxes & $7.918$ & $4.784$ & $21.873$ & $36.198$ \\ 
+			BusSv & $4.837$ & $3.677$ & $19.175$ & $25.225$ \\ 
+			Chems & $6.417$ & $4.938$ & $22.223$ & $28.877$ \\ 
+			Chips & $1.821$ & $2.368$ & $15.389$ & $11.832$ \\ 
+			Clths & $10.370$ & $4.965$ & $22.281$ & $46.542$ \\ 
+			Cnstr & $7.701$ & $4.656$ & $21.577$ & $35.692$ \\ 
+			Coal & $$-$3.351$ & $7.407$ & $27.216$ & $$-$12.311$ \\ 
+			Drugs & $5.713$ & $4.185$ & $20.457$ & $27.924$ \\ 
+			ElcEq & $3.997$ & $2.634$ & $16.229$ & $24.629$ \\ 
+			FabPr & $1.711$ & $5.273$ & $22.964$ & $7.449$ \\ 
+			Fin & $4.256$ & $7.963$ & $28.219$ & $15.082$ \\ 
+			Food & $6.941$ & $3.390$ & $18.412$ & $37.695$ \\ 
+			Fun & $8.808$ & $2.985$ & $17.277$ & $50.979$ \\ 
+			Gold & $1.833$ & $3.898$ & $19.743$ & $9.287$ \\ 
+			Guns & $14.340$ & $4.416$ & $21.014$ & $68.237$ \\ 
+			Hardw & $0.721$ & $6.558$ & $25.609$ & $2.815$ \\ 
+			Hlth & $7.334$ & $4.800$ & $21.909$ & $33.473$ \\ 
+			Hshld & $4.978$ & $6.316$ & $25.132$ & $19.807$ \\ 
+			Insur & $6.783$ & $6.467$ & $25.430$ & $26.673$ \\ 
+			LabEq & $6.617$ & $5.029$ & $22.426$ & $29.504$ \\ 
+			Mach & $7.802$ & $4.874$ & $22.077$ & $35.337$ \\ 
+			Market & $4.399$ & $5.832$ & $24.150$ & $18.215$ \\ 
+			Meals & $9.959$ & $13.402$ & $36.608$ & $27.205$ \\ 
+			MedEq & $9.133$ & $7.115$ & $26.674$ & $34.240$ \\ 
+			Mines & $6.530$ & $14.067$ & $37.506$ & $17.412$ \\ 
+			Oil & $4.558$ & $3.813$ & $19.527$ & $23.344$ \\ 
+			Other & $1.090$ & $1.947$ & $13.954$ & $7.809$ \\ 
+			Paper & $4.988$ & $2.668$ & $16.335$ & $30.537$ \\ 
+			PerSv & $4.130$ & $5.429$ & $23.299$ & $17.728$ \\ 
+			RlEst & $4.544$ & $3.987$ & $19.968$ & $22.755$ \\ 
+			Rtail & $6.367$ & $6.323$ & $25.146$ & $25.320$ \\ 
+			Rubbr & $6.300$ & $13.098$ & $36.191$ & $17.408$ \\ 
+			Ships & $12.983$ & $7.057$ & $26.565$ & $48.873$ \\ 
+			Smoke & $13.890$ & $6.126$ & $24.751$ & $56.118$ \\ 
+			Soda & $9.429$ & $3.663$ & $19.139$ & $49.264$ \\ 
+			Softw & $2.779$ & $4.038$ & $20.095$ & $13.830$ \\ 
+			Steel & $$-$1.392$ & $4.152$ & $20.376$ & $$-$6.834$ \\ 
+			Telcm & $0.711$ & $3.658$ & $19.126$ & $3.719$ \\ 
+			Toys & $5.157$ & $4.484$ & $21.176$ & $24.354$ \\ 
+			Trans & $7.318$ & $4.505$ & $21.224$ & $34.477$ \\ 
+			Txtls & $5.396$ & $3.670$ & $19.157$ & $28.166$ \\ 
+			Util & $7.661$ & $7.262$ & $26.949$ & $28.429$ \\ 
+			Whlsl & $6.201$ & $5.807$ & $24.098$ & $25.732$ \\ 
 			\hline \\[-1.8ex] 
 		\end{tabular} 
 	\end{table} 
+	\newpage
 	
-	\begin{figure}[!hbtp]
+	\begin{figure}[!t]
 		\caption{Efficient Frontiers, Post-2000}
 		\begin{subfigure}{.5\textwidth}
 			\centering
@@ -351,8 +416,11 @@
 		\label{fig3}
 	\end{figure}
 	
-	\newpage
 	\item I constructed the Sharpe Ratio-maximal portfolio for all 1176 combinations of two assets in the data (excluding the ``market''). Of these, \textbf{589} have both portfolio weights nonnegative, and thus the probability that a portfolio of two of these industries does not include a short position is \textbf{50.1\%}. 
 \end{enumerate}
+
+\nocite{back2010asset}
+\bibliographystyle{named}
+\bibliography{finance}
 
 \end{document}
