@@ -184,10 +184,48 @@ capm_results %>%
 
 # Question 3: Plot Arbitrage ----------------------------------------------
 
+# Parameters
 P <- c(1.575, 1.35, 3.425)
 D <- matrix(c(2, 1, 4, 1, 3, 3), nrow = 2, byrow = T)
 
-# Save this for last, per his instructions
+# Shares
+theta1 <- theta2 <- theta3 <- seq(-10, 10)
+thetas <- expand_grid(theta1, theta2, theta3) # probably a smarter way to do this
+names(thetas) <- qc(t_1, t_2, t_3)
+
+d_theta_any <- function(t1, t2, t3){
+  theta = c(t1, t2, t3)
+  dt = D %*% theta
+  return(any(dt >= 0))
+}
+
+d_theta_any <- Vectorize(d_theta_any, vectorize.args = qc(t1, t2, t3))
+
+p_theta_any <- function(t1, t2, t3){
+  theta = c(t1, t2, t3)
+  pt = P %*% theta
+  return(any(pt <= 0))
+}
+
+p_theta_any <- Vectorize(p_theta_any, vectorize.args = qc(t1, t2, t3))
+
+thetas <- thetas %>% 
+  mutate(
+    dtheta = d_theta_any(t_1, t_2, t_3),
+    ptheta = p_theta_any(t_1, t_2, t_3),
+    arbitrage = dtheta & ptheta
+  )
+
+ggplot(filter(thetas, t_3 < 10), aes(t_1, t_2, color = arbitrage)) + 
+  geom_point() + 
+  facet_wrap(~t_3) + 
+  labs(
+    title = "Visualizing Arbitrage",
+    subtitle = expression("Number above tile is "*theta[3]),
+    x = expression(theta[1]), y = expression(theta[2])
+  ) + 
+  theme(legend.position = "bottom")
+  
 
 # Question 5: Calibrating -------------------------------------------------
 
@@ -251,7 +289,11 @@ m_ratio <- data.frame(
 )
 ggplot(m_ratio, aes(mu, m_rat)) + 
   geom_point() + 
-  geom_line()
+  geom_line() + 
+  labs(
+    x = expression(mu), 
+    y = expression(frac(m(s[down]), m(s[up])))
+  )
 
 sig_m <- data.frame(
   mu = mus,
@@ -261,7 +303,11 @@ sig_m <- data.frame(
 
 ggplot(sig_m, aes(mu, sigm)) + 
   geom_point() + 
-  geom_line()
+  geom_line() + 
+  labs(
+    x = expression(mu),
+    y = expression(sigma[m])
+  )
 
 sigs <- seq(0.01, 0.10, length.out = 10)
 m_grid_sig <- t(sapply(sigs, function(sig) pricing_kernel(mu = 1.07, sig)$ms))
@@ -272,7 +318,11 @@ m_ratio_sig <- data.frame(
 
 ggplot(m_ratio_sig, aes(sig, m_rat)) + 
   geom_point() + 
-  geom_line()
+  geom_line() + 
+  labs(
+    x = expression(sigma),
+    y = expression(frac(m(s[down]), m(s[up])))
+  )
 
 sig_m_sig <- data.frame(
   mu = mus,
@@ -282,7 +332,11 @@ sig_m_sig <- data.frame(
 
 ggplot(sig_m_sig, aes(mu, sigm)) + 
   geom_point() + 
-  geom_line()
+  geom_line() + 
+  labs(
+    x = expression(sigma),
+    y = expression(sigma[m])
+  )
 
 # Question 6: HJ Bounds ---------------------------------------------------
 
@@ -335,5 +389,8 @@ hjb <- mutate(hjb,
 
 ggplot(hjb, aes(Em, bound)) + 
   geom_point() + 
-  geom_line()
+  geom_line() + 
+  labs(
+    x = "E[m]", y = "HJB Bound"
+  )
 
