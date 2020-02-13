@@ -9,6 +9,7 @@ library(lubridate)
 library(stargazer)
 inds <- read.csv("Industry49_data.csv", header = T)
 theme_set(theme_bw())
+figpath <- "assignment_writeups/02_assign/"
 
 # Clean Data --------------------------------------------------------------
 
@@ -136,8 +137,8 @@ sharpe_ratio_opt <- function(assets, Rf = 0.01){
 # Question 2: Test CAPM ---------------------------------------------------
 
 # Run multiple regression
-y <- select(ers, -c(date, eR_Market)) %>% as.matrix()
-rm <- ers["eR_Market"] %>% as.matrix()
+y <- select(ers, -c(date, Market)) %>% as.matrix()
+rm <- ers["Market"] %>% as.matrix()
 models <- lm(formula = y ~ rm)
 
 # Get coefficient values
@@ -155,8 +156,6 @@ rownames(all_pvals) <- c()
 
 # merge results
 capm_results <- merge(coeffs, all_pvals, by = "industry")
-capm_results <- mutate(capm_results, 
-                       industry = str_remove_all(industry, "eR_I_"))
 
 # export results
 capm_results_out <- capm_results %>% 
@@ -171,7 +170,7 @@ write(capm_results_out, file = "assignment_writeups/02_assign/table_1_capm.txt")
 
 # B 
 capm_results %>% 
-  merge(., r_bar, by = "industry") %>% 
+  merge(., exp_ers, by = "industry") %>% 
   ggplot(aes(beta, r_bar * 100)) + 
   geom_point() + 
   labs(
@@ -181,6 +180,8 @@ capm_results %>%
   ) + 
   geom_smooth(method = "lm", se = T, linetype = "dashed", color = "black",
               size = 0.5)
+
+ggsave(paste0(figpath, "q2_fmtest.jpg"))
 
 # Question 3: Plot Arbitrage ----------------------------------------------
 
@@ -225,7 +226,7 @@ ggplot(filter(thetas, t_3 < 10), aes(t_1, t_2, color = arbitrage)) +
     x = expression(theta[1]), y = expression(theta[2])
   ) + 
   theme(legend.position = "bottom")
-  
+ggsave(paste0(figpath, "q3_arb.jpg"))
 
 # Question 5: Calibrating -------------------------------------------------
 
@@ -294,6 +295,7 @@ ggplot(m_ratio, aes(mu, m_rat)) +
     x = expression(mu), 
     y = expression(frac(m(s[down]), m(s[up])))
   )
+ggsave(paste0(figpath, "q5_fig1.jpg"))
 
 sig_m <- data.frame(
   mu = mus,
@@ -308,6 +310,7 @@ ggplot(sig_m, aes(mu, sigm)) +
     x = expression(mu),
     y = expression(sigma[m])
   )
+ggsave(paste0(figpath, "q5_fig2.jpg"))
 
 sigs <- seq(0.01, 0.10, length.out = 10)
 m_grid_sig <- t(sapply(sigs, function(sig) pricing_kernel(mu = 1.07, sig)$ms))
@@ -324,6 +327,8 @@ ggplot(m_ratio_sig, aes(sig, m_rat)) +
     y = expression(frac(m(s[down]), m(s[up])))
   )
 
+ggsave(paste0(figpath, "q5_fig3.jpg"))
+
 sig_m_sig <- data.frame(
   mu = mus,
   sigm = 0.5 * (m_grid_sig[, 1] - mus) ^ 2 + 
@@ -337,6 +342,7 @@ ggplot(sig_m_sig, aes(mu, sigm)) +
     x = expression(sigma),
     y = expression(sigma[m])
   )
+ggsave(paste0(figpath, "q5_fig4.jpg"))
 
 # Question 6: HJ Bounds ---------------------------------------------------
 
@@ -356,6 +362,7 @@ ggplot(eff_front, aes(p_sd, mus)) +
     x = expression(sigma[p]), y = expression(mu[p])
   ) +
   theme(legend.position = "bottom")
+ggsave(paste0(figpath, "q6_eff_front.jpg"))
 
 # b) 
 rfs <- seq(1.01, 1.05, by = 0.01) - 1
@@ -393,4 +400,6 @@ ggplot(hjb, aes(Em, bound)) +
   labs(
     x = "E[m]", y = "HJB Bound"
   )
+
+ggsave(paste0(figpath, "q6_hjb.jpg"))
 
