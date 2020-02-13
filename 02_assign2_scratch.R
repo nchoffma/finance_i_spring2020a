@@ -226,7 +226,7 @@ ggplot(filter(thetas, t_3 < 10), aes(t_1, t_2, color = arbitrage)) +
     x = expression(theta[1]), y = expression(theta[2])
   ) + 
   theme(legend.position = "bottom")
-ggsave(paste0(figpath, "q3_arb.jpg"))
+ggsave(paste0(figpath, "q3_arb.jpg"), width = 6, height = 6, units = "in")
 
 # Question 5: Calibrating -------------------------------------------------
 
