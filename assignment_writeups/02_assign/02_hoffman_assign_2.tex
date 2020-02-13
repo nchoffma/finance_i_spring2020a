@@ -332,6 +332,12 @@ For most industries, we cannot reject the null hypothesis that $\hat{\alpha} = 0
 			\[\frac{\ev[m]\ev[Rn - R_f]}{\sigma_n} = -\rho(R_n - R_f, m)\sigma_m\]
 			and thus finally,
 			\[\frac{\ev[Rn - R_f]}{\sigma_n} \leq \frac{\sigma_m}{\ev[m]}\]
+			
+			If $ \log m \sim NID(\bar{m}, \sigma_m^2) $ and $ \log R_n^j \sim NID(\bar{r}_n, \sigma_n^2) $, then the Alvarez-Jermann Bound becomes
+			\[\log R_f - \exp(\bar{m} + \frac{\sigma_m^2}{2}) \geq \exp(\bar{r} + \frac{\sigma_n^2}{2})\]
+			while the Hansen-Jaganathan bound becomes
+			\[\frac{\sigma_m}{\exp(\bar{m} + \frac{\sigma_m^2}{2})} \geq \frac{\ev[R_n - R_f]}{\sigma_n} \approx \sigma_n\]
+			In both cases, the variance in the pricing kernel $ m $ serves as a bound for the variance of the portfolio of assets. 
 		\end{enumerate} 
 		
 \end{enumerate}
