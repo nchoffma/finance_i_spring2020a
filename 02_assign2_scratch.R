@@ -253,6 +253,7 @@ pricing_kernel = function(mu, sig, prices = rep(1.0, 2)){
     return(dif)
   }
   
+  # Solve for the returns to get mu and theta
   out = optim(
     par = c(0.9, 1.1), # initial guess
     fn = mean_var, 
@@ -398,8 +399,15 @@ ggplot(hjb, aes(Em, bound)) +
   geom_point() + 
   geom_line() + 
   labs(
-    x = "E[m]", y = "HJB Bound"
+    x = "E[m]", y = "HJ Bound"
   )
 
 ggsave(paste0(figpath, "q6_hjb.jpg"))
+
+# export tables
+hjb_out <- hjb %>% 
+  select(-Em) %>% 
+  stargazer(., summary = F, rownames = F)
+
+write(hjb_out, file = "assignment_writeups/02_assign/q6_table_hjb.txt")
 
