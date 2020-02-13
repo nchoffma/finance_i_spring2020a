@@ -160,7 +160,7 @@ capm_results <- merge(coeffs, all_pvals, by = "industry")
 # export results
 capm_results_out <- capm_results %>% 
   select(industry, beta, alpha, p_alpha) %>% 
-  stargazer(., summary = F)
+  stargazer(., summary = F, rownames = F)
 
 write(capm_results_out, file = "assignment_writeups/02_assign/table_1_capm.txt")
 
