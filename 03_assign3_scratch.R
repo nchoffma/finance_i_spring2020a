@@ -79,3 +79,8 @@ Eer_2_dn <- Er_2_dn - Rf_1_zd + 1 # t = 1, down
 # Optimal consumption
 c2_s <- (1 / a0) / 4
 num_a0 <- c2_s * a0
+theta_1 <- (1 / 2) * a1
+
+theta_1_opt <- c(theta_1[1] + theta_1[2], theta_1[3] + theta_1[4])
+theta_0_opt <- theta_1_opt %*% solve(D_0) # this is it, or very close
+
