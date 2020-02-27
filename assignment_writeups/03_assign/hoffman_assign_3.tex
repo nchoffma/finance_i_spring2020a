@@ -1,0 +1,102 @@
+\documentclass[11pt]{article}
+\usepackage[margin = 1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm} % for proof environment
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{indentfirst}
+\usepackage{caption}
+\usepackage{lscape}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{subcaption} % caption the subfigures
+\usepackage{setspace}
+\usepackage[round]{natbib}
+
+\renewcommand{\labelenumii}{\alph*)}
+\newcommand{\w}{\omega}
+\newcommand{\p}{\prime}
+\newcommand{\one}{\mathbf{1}}
+\newcommand{\onep}{\mathbf{1}^\prime}
+\newcommand{\lagr}{\mathcal{L}}
+\newcommand{\inv}[1]{#1^{-1}}
+\newcommand{\ev}{\mathbb{E}}
+\renewcommand{\wp}{\omega^\prime}
+
+\begin{document}
+\begin{flushleft}
+	Nick Hoffman \\
+	Finance I, Spring 2020 A \\
+	Assignment 3 \\
+\end{flushleft}
+
+\begin{enumerate}
+	\item Risk aversion and expected utility
+	\begin{enumerate} 
+		\item If \(u(c) = -\frac{1}{\alpha} \exp(-\alpha c)\), then
+		\[A_a(c) = \frac{\alpha \exp(-\alpha c)}{\exp(-\alpha c)} = \alpha\]
+		\item If \(u(c) = \frac{c^\alpha }{\alpha}\), then
+		\[A_r(c) = \frac{-(\alpha - 1)c^{\alpha - 2}}{c^{\alpha - 1}}c = 1 - \alpha\]
+		\item Consider an insurance premium \(\pi\) as compared to a lottery \(\varepsilon\), with \(\ev{\varepsilon} = 0\) and \(V(\varepsilon) = \sigma^2_\varepsilon\). \(\pi\) must be set such that \(u(c - \pi) = \ev{u(c + \varepsilon)}\) To find \(\pi\), I take a Taylor Series expansion at \(u(c)\), obtaining
+		\[u(c) - u^\prime(c) = u(c) + u^\prime(c)\ev{\varepsilon} + \frac{1}{2}u^{\prime\prime}(c)\ev{\varepsilon^2}\]
+		which implies that
+		\[-u^\prime(c) = \frac{1}{2}u^{\prime\prime}(c)\sigma^2_\varepsilon\]
+		and thus
+		\[\pi = -\frac{1}{2}\frac{u^{\prime\prime}(c)}{u^{\prime}(c)}\sigma_\varepsilon^2\]
+		\item Now, the lottery \(\varepsilon\) and the insurance premium \(\pi\) are given as proportions of wealth, rather than in dollar amounts. Thus, we are looking for \(\pi\) such that \(u(c(1 - \pi)) = \ev{u\big(c(1 + \varepsilon)\big)}\). To solve for \(\pi\), I again take a Taylor Series expansion at \(u(c)\), obtaining
+		\[u(c) - c u^\prime (c)\pi = u(c) + c u^\prime (c)\ev{\varepsilon} -\frac{1}{2}c^2 u^{\prime\prime} (c)\sigma_\varepsilon^2\]
+		and thus
+		\[\pi = -\frac{1}{2}\frac{u^{\prime\prime}(c)}{u^{\prime}(c)} c \sigma_\varepsilon^2\]
+		\item With wealth \(w = 10,000\), \(l = 100\), and \(g = 110\), an agent refuses a lottery offering \(w - l\) and \(w + g\) each with equal probability. This implies that
+		\[\frac{10,000^\alpha}{\alpha} > \frac{1}{2}\frac{9900^\alpha}{\alpha} + \frac{1}{2}\frac{10,110^\alpha}{\alpha}\]
+		which implies that \(\alpha < -8.086\).
+		\item Given the value for \(\alpha\) found in part (e), In order to accept a lottery where \(L = 1,000\), it must be the case that 
+		\[\frac{10,000^\alpha}{\alpha} < \frac{1}{2}\frac{9000^\alpha}{\alpha} + \frac{1}{2}\frac{(10,000 + G)^\alpha}{\alpha}\]
+		There is no value of \(G\) such that this inequality holds. The same is true for \(L = 2,000\).
+	\end{enumerate}
+
+	\item In this two-period economy, the Arrow-Debreu state prices can be found as follows: to begin, I caculate the conditional A-D prices for each of the four states in \(z_2 = \{ \{uu\}, \{ud\}, \{du\}, \{dd\} \}\). These prices are caculated conditional on being at \(z_{u} = \{\{uu, ud\}\}\). Thus, they use the conditional prices \(P_u = [1, 1.9444]^\prime\), and the conditional payoff matrix,
+	\[D_u = \begin{bmatrix}
+		1 & 2.5 \\ 1 & 1.5
+	\end{bmatrix}\]
+	For example, to caculate \(a(z_{uu} | z_u)\), I use the following formula:
+	\[a(z_{uu} | z_u) = P_u^\prime \inv{D_u} \begin{bmatrix}
+		1 \\ 0
+	\end{bmatrix} = 0.444\]
+	The remaining three conditional A-D prices are calculated in the same way:
+	\begin{align*}
+		a(z_{ud} | z_u) &= P_u^\prime \inv{D_u} \begin{bmatrix} 0 \\ 1 \end{bmatrix} = 0.556 \\
+		a(z_{du} | z_d) &= P_d^\prime \inv{D_d} \begin{bmatrix} 1 \\ 0 \end{bmatrix} = 0.314 \\
+		a(z_{dd} | z_d) &= P_u^\prime \inv{D_d} \begin{bmatrix} 0 \\ 1 \end{bmatrix} = 0.646
+	\end{align*}
+	where \(P_d = [0.96, 1.2742]^\prime\) and 
+	\[D_d = \begin{bmatrix}
+		1 & 2 \\ 1 & 1
+	\end{bmatrix}\]
+	With these values, I can caculate the date-0 state prices. Using the date-0 price vector \(P_0 = [0.9487, 1.5285 ]^\prime\) and substituting the date-1 prices for \(D_0\), I can calculate a replicating portfolio for the A-D securities. The payoff matrix is defined as follows:
+	\[D_0 = \begin{bmatrix}
+		1.00 & 1.9444 \\ 0.96 & 1.2472
+	\end{bmatrix}\]
+	For example, to calculate \(a_0(z_uu)\), I calculate a portfolio \(\theta\) that generates payoffs of \(a(z_{uu} | z_u)\) in the up state and 0 in the down state. Thus, 
+	\begin{align*}
+		a_0(z_uu) &= P_0^\prime \inv{D_0} \begin{bmatrix} a(z_{uu} | z_u) \\ 0 \end{bmatrix} = 0.194 \\
+		a_0(z_ud) &= P_0^\prime \inv{D_0} \begin{bmatrix} 0 \\ a(z_{ud} | z_u) \end{bmatrix} = 0.297 \\
+		a_0(z_du) &= P_0^\prime \inv{D_0} \begin{bmatrix} a(z_{du} | z_d) \\ 0 \end{bmatrix} = 0.137 \\
+		a_0(z_dd) &= P_0^\prime \inv{D_0} \begin{bmatrix} 0 \\ a(z_{dd} | z_d) \end{bmatrix} = 0.345 \\
+	\end{align*}
+	Lastly, the date-0 A-D state prices for the date-1 states can be calculated as before: the payoff matrix \(D_0\) is the same as above, and thus the replicating portfolio \(\theta\) is given by 
+	\[\theta = I_2 \inv{D_0} \]
+	where \(I_2\) is the \(2\times 2\) identity matrix. Thus, the date-1 A-D prices are given by 
+	\[\begin{bmatrix}
+		a_0(z_u) \\ a_0(z_d)
+	\end{bmatrix} = P_0^\prime I_2 \inv{D_0} = \begin{bmatrix}
+		0.436 \\ 0.534
+	\end{bmatrix}\]
+
+	\item With the A-D state prices in hand, I can solve for the stochastic discount factor \(M_t\) at each node. 
+
+\end{enumerate}
+
+\end{document}
+

@@ -1,0 +1,61 @@
+\documentclass[11pt]{article}
+\usepackage[margin = 1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm} % for proof environment
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{indentfirst}
+\usepackage{caption}
+\usepackage{lscape}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{subcaption} % caption the subfigures
+\usepackage{setspace}
+\usepackage[round]{natbib}
+
+\renewcommand{\labelenumii}{\alph*)}
+\newcommand{\w}{\omega}
+\newcommand{\p}{\prime}
+\newcommand{\one}{\mathbf{1}}
+\newcommand{\onep}{\mathbf{1}^\prime}
+\newcommand{\lagr}{\mathcal{L}}
+\newcommand{\inv}[1]{#1^{-1}}
+\newcommand{\ev}{\mathbb{E}}
+\renewcommand{\wp}{\omega^\prime}
+
+\begin{document}
+
+\begin{itemize}
+    \item Stochastic discount factor M
+    \[M(z|z_t) = M_t = \frac{M(z)}{M(z_t)}\]
+    \item Pricing
+        \begin{itemize}
+            \item Nonzero Prices: three reasons
+            \begin{enumerate}
+                \item No arbitrage
+                \item Nonzero state probabilities
+                \item Nonzero dividends
+            \end{enumerate}
+            \item Pricing Kernel m: \(m_{t+1}\equiv M_{t+1} / M_t \)
+            \[G\]
+        \end{itemize}
+    \item Testing the model
+    \begin{enumerate}
+        \item GMM test of the CAPM
+        \item ``Hidden'' CAPM
+        \[E_t[m_{t+1}(R_{t+1} - R_f)] = \frac{cov_t(R_{m,t+1}, R_{n, t+1})}{V(R_{m, t+1})} E_t[R_{m,t+1} - R_f]\]
+        \item This is not true--ignores covariance between \(\beta\) and excess return. 
+    \end{enumerate}
+    \item Macrofinance: Equity Risk Premium
+    \begin{itemize}
+        \item Agent's problem:
+        \[\max_{\theta_t} \sum_{t} \delta^t E \left(\frac{c_t^\alpha}{\alpha}\right)\]
+        subject to their intertemporal budget constraint:
+        \[\theta_{a, t-1} (P_{a, t} + d_{a,t}) + \theta_{b,t-1} = c_t + \theta_{a,t}P_{a,t} + \theta_{b,t}P_{b,t}\]
+        \item Euler Equation
+        \[E\left[ \delta\left( \frac{c_{t+1}}{c_t} \right)^{\alpha - 1}R_{f,t+1} \right] = 1\]
+    \end{itemize}
+\end{itemize}
+
+\end{document}
