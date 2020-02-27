@@ -68,7 +68,7 @@
 	\[r_i(t) = \hat{\alpha}_i + \hat{\beta}_i r_m(t) + \hat{\varepsilon}_t\]
 	where $ r_i(t) $ is the return on asset $ i $ in period $ t $, and $ r_m(t) $ is the market return in period $ t $. I then test the null hypothesis that $ \hat{\alpha}_i = 0 $, and reject the null hypothesis if the resulting $ p $-value is less than 0.05. 
 	\begin{enumerate}
-		\item The results are reported in Table (\ref{table_1_capm}) \newpage
+		\item The results are reported in Table \ref{table_1_capm} \newpage
 		
 			\begin{table}[!htbp] \centering 
 			\footnotesize
@@ -161,16 +161,16 @@ For most industries, we cannot reject the null hypothesis that $\hat{\alpha} = 0
 		\[\frac{9}{5}\cdot 1.575 + \frac{2}{5} 3.375 < 3.425 \]
 		Thus, an agent can extract unlimited profits by buying $ 9/5 $ asset 1 plus $ 2/5 $ asset 2, and selling asset 3. 
 		
-		\item Figure (\ref{q3_arb}) illustrates the arbitrage in this example: \newpage
+		\item Figure \ref{q3_arb} illustrates the arbitrage in this example: \newpage
 		
-		\begin{figure}[!ht]
+		\begin{figure}[!h]
 			\centering
 			\caption{}
 			\label{q3_arb}
 			\includegraphics[width=0.7\textwidth]{q3_arb.jpg}
 		\end{figure}
 		
-		In Figure (\ref{q3_arb}), the $ x $-axis represents the shares of asset 1, the $ y $-axis the shares in asset 2, and the numbers in shaded gray boxes above the tiles the shares in asset 3. The teal areas are portfolios for which $ P\theta \leq 0 $ and $ D\theta\geq 0 $.
+		In Figure \ref{q3_arb}, the $ x $-axis represents the shares of asset 1, the $ y $-axis the shares in asset 2, and the numbers in shaded gray boxes above the tiles the shares in asset 3. The teal areas are portfolios for which $ P\theta \leq 0 $ and $ D\theta\geq 0 $.
 	\end{enumerate}
 	
 	\item In this economy, there are three states, $ s\in\{s_1, s_2, s_3\} $, each with equal $ 1/3 $ probability. The prices and payoffs are as follows: 
@@ -192,13 +192,157 @@ For most industries, we cannot reject the null hypothesis that $\hat{\alpha} = 0
 		\item With complete markets, the Arrow-Debreu state prices are given by the vector $ A = P\inv{D} $. However, because $ D $ is not of full rank, it cannot be inverted. Thus, there exists a continuum of Arrow-Debreu state prices. Given any $ a(s_3) $, prices $ a(s_1) $ and $ a(s_2) $ can be chosen in order to construct the replicating portfolio. 
 		
 		\item Because there is a continuum of A-D state prices, there is a continuum of risk-free rates. To see this, note that $ R_f = 1/B $, where $ B = \sum_{s = 1}^k a(s_k) $. Because there is an infinite number of values that any $ a(s) $ can take, there will similarly be a continuum of values for the risk-free rate. 
+		
+		\item Once again, there is a continuum of values that the risk-neutral probabilities can take, as $ q(s) = a(s)/B$, both of which are undetermined.
+		
+		\item The pricing kernel $ m(s) = a(s) / p(s)  = 3 a(s) $ can also take an infinite number of values.
+		
+		\item The date-$ T $ consumption plan $ c_T = (18, 8, 6)^\p $ is attainable. Pricing this consumption plan, however, is complicated due to the incompleteness of the markets. Choosing any nonzero amount of asset three to hold (denoted $\theta_3$), this plan can be financed by any holdings $ (\theta_1, \theta_2, \theta_3) $ such that $ \theta_1 = 4 - 3\theta_3 $ and $ \theta_2 = 2 + \theta_3 $. 
+		
+		\item The date-$ T $ consumption plan $ c_T = (18, 8, 6)^\p $ is \emph{not} attainable. $ (18, 8, 6)^\p $ is not in the span of $ D $; there is no combination of asset holdings that can finance this plan. The only way to achieve this plan is to have $ c_T $ as one's date-$ T $ endowment. 
 		\end{enumerate}
 	
-		\item 
+		\item Here there are two states, $ s\in\{s_{down}, s_{up}\} $. 
+		\begin{enumerate}
+			\item With a risk-free rate of $ 1 \% $, and prices $ P = \begin{pmatrix} 1 & 1\end{pmatrix} $, the payoffs on the bond are given by $ \begin{pmatrix}	1.01 & 1.01	\end{pmatrix}^\prime $. 
+			
+			\item The payoffs for the stock complete the matrix of dividends: 
+			\[ D = \begin{bmatrix}
+			1.01 & 0.87 \\ 1.01 & 1.27
+			\end{bmatrix}\]
+			The payoffs to the stock are chosen such that its expected excess return is $ 6\% $, and its standard deviation is about $ 20\% $ per year. 
+			
+			\item The Arrow-Debreu state prices are as follows:
+			\[A = \begin{bmatrix} a(s_{down}) \\ a(s_{up})\end{bmatrix} = \begin{bmatrix} 0.644 \\ 0.347 \end{bmatrix}\]
+			
+			\item The risk-neutral probabilities are 
+			\[q = \begin{bmatrix}
+			0.65 \\ 0.35
+			\end{bmatrix}\]
+			
+			\item The pricing kernel $ m $ is given by 
+			\[m = \begin{bmatrix}
+			1.287 \\ 0.693
+			\end{bmatrix}\]
+			
+			\item Figure \ref{fig_q5} shows how the pricing kernel changes in response to $\mu$ and $\sigma$. Figures \ref{fig1_a} and \ref{fig1_b} show that the ratio $ m(s_{down}) / m(s_{up}) $, as well as the standard deviation $\sigma_m$, increase in $\mu$. Figures \ref{fig1_c} and \ref{fig1_d}, meanwhile, show that the ratio and $\sigma_m$ decrease as the variance $\sigma$ increases. 
+			
+			\newpage
+			\begin{figure}[!hbt]
+				\caption{}
+				\begin{subfigure}{.5\textwidth}
+					\centering
+					\caption{Pricing Kernel Ratio as function of $\mu$}
+					\includegraphics[width=.8\linewidth]{q5_fig1}
+					\label{fig1_a}
+				\end{subfigure}%
+				\begin{subfigure}{.5\textwidth}
+					\centering
+					\caption{$\sigma_m$ as function of $\mu$}
+					\includegraphics[width=.8\linewidth]{q5_fig2}
+					\label{fig1_b}
+				\end{subfigure}
+				\begin{subfigure}{.5\textwidth}
+					\centering
+					\caption{Pricing Kernel Ratio as function of $\sigma$}
+					\includegraphics[width=.8\linewidth]{q5_fig3}
+					\label{fig1_c}
+				\end{subfigure}%
+				\begin{subfigure}{.5\textwidth}
+					\centering
+					\caption{$\sigma_m$ as function of $\sigma$}
+					\includegraphics[width=.8\linewidth]{q5_fig4}
+					\label{fig1_d}
+				\end{subfigure}
+				\label{fig_q5}
+			\end{figure}
+		\end{enumerate}
 		
-		\item 
+		\item \begin{enumerate}
+			\item Figure \ref{q6_fig1} shows the efficient frontier for two industries, Agriculture and business services:
+			
+			\begin{figure}[!ht]
+				\centering
+				\caption{}
+				\label{q6_fig1}
+				\includegraphics[width=0.5\textwidth]{q6_eff_front}
+			\end{figure}
+			
+			\item Table \ref{q6_table} shows the Sharpe Ratio of the portfolio of these two industries selected to maximize this ratio, as well as the Hansen-Jaganathan bound on $\sigma_m$ for each of the Sharpe ratios: \newpage
+			
+			\begin{table}[!htbp] \centering 
+				\caption{} 
+				\label{q6_table} 
+				\begin{tabular}{@{\extracolsep{5pt}} ccc} 
+					\\[-1.8ex]\hline 
+					\hline \\[-1.8ex] 
+					$ R_f $ & Sharpe Ratio$ _{max} $ & HJ Bound \\ 
+					\hline \\[-1.8ex] 
+					$1.010$ & $0.279$ & $0.276$ \\ 
+					$1.020$ & $0.232$ & $0.227$ \\ 
+					$1.030$ & $0.189$ & $0.183$ \\ 
+					$1.040$ & $0.152$ & $0.146$ \\ 
+					$1.050$ & $0.128$ & $0.122$ \\ 
+					\hline \\[-1.8ex] 
+				\end{tabular} 
+			\end{table} 
 		
-		\item 
+			\item Figure \ref{q6_fig2} shows the H-J Bound for $ \sigma_m $ as a function of $ \ev[m] $: 
+			\begin{figure}[!htbp]
+				\centering
+				\caption{Hansen-Jaganathan Bound increases in $ \ev[m] $}
+				\label{q6_fig2}
+				\includegraphics[width=0.5\textwidth]{q6_hjb}
+			\end{figure}
+		\end{enumerate}
+		
+		\item The ``Kelly Criterion'' aims to maximize expected log return. Here, we consider solving this criterion, subject to there being no arbitrage; that is,
+		\begin{gather*}
+		\max_{\{R(s)\}} \ev_t[\log R(s)] \\ 
+		\text{s.t.}\quad \ev_t[m(s) R(s)] = 1
+		\end{gather*}
+		\begin{enumerate}
+			\item \cite{alvarez2005using} establish a bound on the result:
+			\[\ev_t[m(s) R(s)] = 1 \implies \log \ev_t[m(s) R(s)] = 0\]
+			Then, by Jensen's inequality, because the logarithm is a concave function,
+			\[\log \ev_t[m(s) R(s)] \geq \ev_t[\log m(s) R(s)]\]
+			Combining the two gives 
+			\[\ev_t[\log m(s) R(s)] \leq 0 \implies	\ev_t[\log m(s) + \log R(s)] \leq 0 \]
+			and thus
+			\begin{equation}\label{q7_result1}
+			\ev_t[\log R(s)] \leq -\ev_t[\log m(s)]
+			\end{equation}
+			
+			\item Continuing from the result in part (a), \cite{alvarez2005using} proceed as follows: 
+			\begin{align*}
+			L_t(m(s)) &\equiv \log\ev_t m(s) - \ev_t \log m(s) \\
+			&= -\ev_t[\log m(s)] - \log R_f \\
+			&\geq \ev_t[\log m(s)] - \log R_f \\
+			&= \ev_t[\log R(s) - \log R_f]
+			\end{align*}
+			where the inequality is exactly (\ref{q7_result1}). 
+			
+			\item The Hansen-Jaganathan bound, meanwhile, is defined as follows. Beginning with the no arbitrage condition,
+			\[\ev[m(R_n - R_f)] = 0\]
+			which implies that
+			\[\ev[m]\ev[R_n - R_f] + cov(Rn - R_f, m) = 0\]
+			This further implies that
+			\[\frac{\ev[m]\ev[Rn - R_f]}{\sigma_m \sigma_n} + \rho(R_n - R_f, m) = 0\]
+			where $ \rho $ is the correlation. Rearranging:
+			\[\frac{\ev[m]\ev[Rn - R_f]}{\sigma_n} = -\rho(R_n - R_f, m)\sigma_m\]
+			and thus finally,
+			\[\frac{\ev[Rn - R_f]}{\sigma_n} \leq \frac{\sigma_m}{\ev[m]}\]
+			
+			If $ \log m \sim NID(\bar{m}, \sigma_m^2) $ and $ \log R_n^j \sim NID(\bar{r}_n, \sigma_n^2) $, then the Alvarez-Jermann Bound becomes
+			\[\log R_f - \exp(\bar{m} + \frac{\sigma_m^2}{2}) \geq \exp(\bar{r} + \frac{\sigma_n^2}{2})\]
+			while the Hansen-Jaganathan bound becomes
+			\[\frac{\sigma_m}{\exp(\bar{m} + \frac{\sigma_m^2}{2})} \geq \frac{\ev[R_n - R_f]}{\sigma_n} \approx \sigma_n\]
+			In both cases, the variance in the pricing kernel $ m $ serves as a bound for the variance of the portfolio of assets. 
+		\end{enumerate} 
+		
 \end{enumerate}
+
+\bibliographystyle{named}
+\bibliography{02_assign}
 
 \end{document}
