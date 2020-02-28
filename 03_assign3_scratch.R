@@ -19,12 +19,14 @@ r <- uniroot(obj, c(-9,-8))
 alpha_max <- r$root
 
 obj2 <- function(G){
-  a = alpha_max - 0.01 # to ensure refusing previous lottery
-  10000 ^ a - (1 / 2) * (9000 ^ a) - (1 / 2) * ((10000 + G) ^ a)
+  a = -9 # to ensure refusing previous lottery
+  10000 ^ a - (1 / 2) * (8000 ^ a) - (1 / 2) * ((10000 + G) ^ a)
 }
 
-curve(obj2, -1000, 1000)
+curve(obj2, -30000, 0)
 abline(h = 0) # seems to asypmtotically approach 0
+uniroot(obj2, c(-30000, -10001))
+uniroot(obj2, c(-10001, 0))
 
 # Question 2 --------------------------------------------------------------
 

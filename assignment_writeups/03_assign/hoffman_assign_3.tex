@@ -53,49 +53,172 @@
 		which implies that \(\alpha < -8.086\).
 		\item Given the value for \(\alpha\) found in part (e), In order to accept a lottery where \(L = 1,000\), it must be the case that 
 		\[\frac{10,000^\alpha}{\alpha} < \frac{1}{2}\frac{9000^\alpha}{\alpha} + \frac{1}{2}\frac{(10,000 + G)^\alpha}{\alpha}\]
-		There is no value of \(G\) such that this inequality holds. The same is true for \(L = 2,000\).
+		In order for the agent to accept this lottery, it must be that \(-20621.56 \leq G \leq -10000\). If \(L = 2000\), it must be that \(-18282.72 \leq G \leq -10000\). To compute these bounds, I set \(\alpha = -9\), to ensure that the agent would refuse the lottery in part (e). 
 	\end{enumerate}
 
-	\item In this two-period economy, the Arrow-Debreu state prices can be found as follows: to begin, I caculate the conditional A-D prices for each of the four states in \(z_2 = \{ \{uu\}, \{ud\}, \{du\}, \{dd\} \}\). These prices are caculated conditional on being at \(z_{u} = \{\{uu, ud\}\}\). Thus, they use the conditional prices \(P_u = [1, 1.9444]^\prime\), and the conditional payoff matrix,
-	\[D_u = \begin{bmatrix}
-		1 & 2.5 \\ 1 & 1.5
-	\end{bmatrix}\]
-	For example, to caculate \(a(z_{uu} | z_u)\), I use the following formula:
-	\[a(z_{uu} | z_u) = P_u^\prime \inv{D_u} \begin{bmatrix}
-		1 \\ 0
-	\end{bmatrix} = 0.444\]
-	The remaining three conditional A-D prices are calculated in the same way:
-	\begin{align*}
-		a(z_{ud} | z_u) &= P_u^\prime \inv{D_u} \begin{bmatrix} 0 \\ 1 \end{bmatrix} = 0.556 \\
-		a(z_{du} | z_d) &= P_d^\prime \inv{D_d} \begin{bmatrix} 1 \\ 0 \end{bmatrix} = 0.314 \\
-		a(z_{dd} | z_d) &= P_u^\prime \inv{D_d} \begin{bmatrix} 0 \\ 1 \end{bmatrix} = 0.646
-	\end{align*}
-	where \(P_d = [0.96, 1.2742]^\prime\) and 
-	\[D_d = \begin{bmatrix}
-		1 & 2 \\ 1 & 1
-	\end{bmatrix}\]
-	With these values, I can caculate the date-0 state prices. Using the date-0 price vector \(P_0 = [0.9487, 1.5285 ]^\prime\) and substituting the date-1 prices for \(D_0\), I can calculate a replicating portfolio for the A-D securities. The payoff matrix is defined as follows:
-	\[D_0 = \begin{bmatrix}
-		1.00 & 1.9444 \\ 0.96 & 1.2472
-	\end{bmatrix}\]
-	For example, to calculate \(a_0(z_uu)\), I calculate a portfolio \(\theta\) that generates payoffs of \(a(z_{uu} | z_u)\) in the up state and 0 in the down state. Thus, 
-	\begin{align*}
-		a_0(z_uu) &= P_0^\prime \inv{D_0} \begin{bmatrix} a(z_{uu} | z_u) \\ 0 \end{bmatrix} = 0.194 \\
-		a_0(z_ud) &= P_0^\prime \inv{D_0} \begin{bmatrix} 0 \\ a(z_{ud} | z_u) \end{bmatrix} = 0.297 \\
-		a_0(z_du) &= P_0^\prime \inv{D_0} \begin{bmatrix} a(z_{du} | z_d) \\ 0 \end{bmatrix} = 0.137 \\
-		a_0(z_dd) &= P_0^\prime \inv{D_0} \begin{bmatrix} 0 \\ a(z_{dd} | z_d) \end{bmatrix} = 0.345 \\
-	\end{align*}
-	Lastly, the date-0 A-D state prices for the date-1 states can be calculated as before: the payoff matrix \(D_0\) is the same as above, and thus the replicating portfolio \(\theta\) is given by 
-	\[\theta = I_2 \inv{D_0} \]
-	where \(I_2\) is the \(2\times 2\) identity matrix. Thus, the date-1 A-D prices are given by 
-	\[\begin{bmatrix}
-		a_0(z_u) \\ a_0(z_d)
-	\end{bmatrix} = P_0^\prime I_2 \inv{D_0} = \begin{bmatrix}
-		0.436 \\ 0.534
-	\end{bmatrix}\]
+	\item \begin{enumerate}
+		\item In this two-period economy, the Arrow-Debreu state prices can be found as follows: to begin, I caculate the conditional A-D prices for each of the four states in \(z_2 = \{ \{uu\}, \{ud\}, \{du\}, \{dd\} \}\). These prices are caculated conditional on being at \(z_{u} = \{\{uu, ud\}\}\). Thus, they use the conditional prices \(P_u = [1, 1.9444]^\prime\), and the conditional payoff matrix,
+		\[D_u = \begin{bmatrix}
+			1 & 2.5 \\ 1 & 1.5
+		\end{bmatrix}\]
+		For example, to caculate \(a(z_{uu} | z_u)\), I use the following formula:
+		\[a(z_{uu} | z_u) = P_u^\prime \inv{D_u} \begin{bmatrix}
+			1 \\ 0
+		\end{bmatrix} = 0.444\]
+		The remaining three conditional A-D prices are calculated in the same way:
+		\begin{align*}
+			a(z_{ud} | z_u) &= P_u^\prime \inv{D_u} \begin{bmatrix} 0 \\ 1 \end{bmatrix} = 0.556 \\
+			a(z_{du} | z_d) &= P_d^\prime \inv{D_d} \begin{bmatrix} 1 \\ 0 \end{bmatrix} = 0.314 \\
+			a(z_{dd} | z_d) &= P_u^\prime \inv{D_d} \begin{bmatrix} 0 \\ 1 \end{bmatrix} = 0.646
+		\end{align*}
+		where \(P_d = [0.96, 1.2742]^\prime\) and 
+		\[D_d = \begin{bmatrix}
+			1 & 2 \\ 1 & 1
+		\end{bmatrix}\]
+		With these values, I can caculate the date-0 state prices. Using the date-0 price vector \(P_0 = [0.9487, 1.5285 ]^\prime\) and substituting the date-1 prices for \(D_0\), I can calculate a replicating portfolio for the A-D securities. The payoff matrix is defined as follows:
+		\[D_0 = \begin{bmatrix}
+			1.00 & 1.9444 \\ 0.96 & 1.2472
+		\end{bmatrix}\]
+		For example, to calculate \(a_0(z_uu)\), I calculate a portfolio \(\theta\) that generates payoffs of \(a(z_{uu} | z_u)\) in the up state and 0 in the down state. Thus, 
+		\begin{align*}
+			a_0(z_uu) &= P_0^\prime \inv{D_0} \begin{bmatrix} a(z_{uu} | z_u) \\ 0 \end{bmatrix} = 0.194 \\
+			a_0(z_ud) &= P_0^\prime \inv{D_0} \begin{bmatrix} 0 \\ a(z_{ud} | z_u) \end{bmatrix} = 0.297 \\
+			a_0(z_du) &= P_0^\prime \inv{D_0} \begin{bmatrix} a(z_{du} | z_d) \\ 0 \end{bmatrix} = 0.137 \\
+			a_0(z_dd) &= P_0^\prime \inv{D_0} \begin{bmatrix} 0 \\ a(z_{dd} | z_d) \end{bmatrix} = 0.345 \\
+		\end{align*}
+		Lastly, the date-0 A-D state prices for the date-1 states can be calculated as before: the payoff matrix \(D_0\) is the same as above, and thus the replicating portfolio \(\theta\) is given by 
+		\[\theta = I_2 \inv{D_0} \]
+		where \(I_2\) is the \(2\times 2\) identity matrix. Thus, the date-1 A-D prices are given by 
+		\[\begin{bmatrix}
+			a_0(z_u) \\ a_0(z_d)
+		\end{bmatrix} = P_0^\prime I_2 \inv{D_0} = \begin{bmatrix}
+			0.436 \\ 0.534
+		\end{bmatrix}\]
+	
+		\item With the A-D state prices in hand, I can solve for the stochastic discount factor \(M_t\) at each node. The conditional SDF is given by 
+		\[M(z | z_t) = \frac{a(z | z_t)}{p(z | z_t)}\]
+		Thus, the four date-2 conditional SDF values are
+		\begin{align*}
+			M(z_{uu}|z_u) &= 0.8888 \\ 
+			M(z_{ud}|z_u) &= 1.1112 \\
+			M(z_{du}|z_d) &= 0.6284 \\ 
+			M(z_{dd}|z_d) &= 1.2916 \\
+		\end{align*}
+		The date-1 SDFs are as follows
+		\begin{align*}
+			M(z_u) &= 0.8728 & M(z_d) &= 1.0673
+		\end{align*}
+		again calculated using the A-D state prices at these nodes.
+		\item The pricing kernels are defined as 
+		\[m_{t+1} = \frac{M_{t+1}}{M_t}\]
+		Thus, the pricing kernels at their respective nodes are given by
 
-	\item With the A-D state prices in hand, I can solve for the stochastic discount factor \(M_t\) at each node. 
+		\begin{table}[!ht]
+			\centering
+			\begin{tabular}{c | c}
+				Node & \(m_{t+1}\) \\ \hline
+				\(z_{u}\) & \(0.8728\) \\
+				\(z_{d}\) & \(1.0673\) \\
+				\(z_{uu}\) & \(1.0184\) \\
+				\(z_{ud}\) & \(1.2733\) \\
+				\(z_{du}\) & \(0.5888\) \\
+				\(z_{dd}\) & \(1.2101\) 
+			\end{tabular}
+		\end{table}
 
+		\item The risk-free rate at \(t = 0\) is given by \(1 / B\), where \(B\) is the sum of the A-D state prices for nodes \(z_u\) and \(z_d\), respectively. Thus, \(R_{f,0} = 1.03\). The risk-free rate is different at \(z_u\) and \(z_d\), as here it is defined as the inverse of the sum of the conditional next-period A-D prices. Thus, \(R_{f,1u} = 1.00\), and \(R_{f,1d} = 1.04\). 
+		\item The date-0 expected return on Asset 2 is given by its expected date 1 price, divided by its date-0 price. Thus, \(\ev_0{R_2} = 1.053\), and its expected excess return \(\ev_0[R_2 - R_f] = 1.022\). The expected returns and excess returns at the date-1 nodes are as follows: \newpage
+		
+		\begin{table}[!hb]
+			\centering
+			\begin{tabular}{c | c |c }
+				Node & \(\ev[R_2(z)]\) & \(\ev[R_2(z) - R_f(z)]\) \\ \hline
+				\(z_u\) & 1.029 & 1.03 \\
+				\(z_d\) & 1.177 & 1.14 
+			\end{tabular}
+		\end{table}
+
+		\item Here I consider an investor with preferences \(U = \ev[\ln c_2]\), and look to choose an optimal portfolio. Using the date-0 A-D prices calculated above, and given that each terminal state has equal probability, I reduce this to a static optimization problem:
+		\begin{gather*}
+			\max_{\theta_0} \sum_z \frac{1}{4} \ln c_2(z) \\
+			\text{s.t.} \\
+			\sum_z a_0(z)c_2(z) = 1
+		\end{gather*}
+		From the first-order condition for \(c_2(z)\), I find that \(a_0(z)c_2(z)\) is constant \(\forall z\in z_2\). Thus, the budget constraint implies that for all \(z\), 
+		\[c_2(z) = \frac{1}{4 a_0(s)}\]
+		Because optimal consumption takes this form, it is clear that we want \(1/4\) of a date-0 A-D security for each state at date 0. All that remains is to calculate the necessary portfolio to achieve this. At date 1, \(z = u\), I want one-half of one conditional A-D security for state \(z_{uu}\), and one for \(z_{ud}\). Thus, when considering my portfolio at time 0, I want it to deliver \( (1/2) * ((a(z_{uu} | z_u) + a(z_{ud} | z_u))\). The same can be said for the down state, where I want my date-0 portfolio to deliver \((1/2) * ((a(z_{du} | z_d) + a(z_{dd} | z_d))\). Because all of these quantities are known, I can solve directly for my optimal date-0 portfolio:
+		\[\theta^*_0 = \begin{bmatrix}
+			-0.298 & 0.831
+		\end{bmatrix}\]
+		The price of \(\theta^*_0\) is indeed 1, and so I have satisfied the budget constraint. 
+	\end{enumerate} 
+
+	\item Here I consider a one-period economy, with preferences 
+	\[\ev\left[\delta^t \frac{c_t^\alpha}{\alpha}\right]\]
+	\begin{enumerate}
+		\item To solve for the risk-free rate, I begin with the Euler equation, and impose the equilibrium condition \(c = y\):
+		\[\ev\left[\delta \left(\frac{y_1}{y_0}\right)^{\alpha - 1} \right] = \frac{1}{R_f}\]
+		which implies that 
+		
+		\begin{align*}
+			\log(R_f) &= -\log\left(\ev\left[\delta \left(\frac{y_1}{y_0}\right)^{\alpha - 1} \right]\right) \\
+			&= -\log \delta - \log \ev\left[ \left(\frac{y_1}{y_0}\right)^{\alpha - 1} \right] \\
+			&= -\log \delta - \log\left( \ev\left[ \exp((\alpha - 1)\log(y_1 / y_0)) \right] \right)
+		\end{align*}
+		Because \(\log(y_1 / y_0)\sim N(\tilde{y}, \sigma_y)\), if we set \(\tilde{y} = 0\), then the risk-free rate is given by 
+		\[\log R_f = -\log\delta - \frac{1}{2}(\alpha - 1)^2 \cdot 0.02\]
+
+		\item Beginning with the Euler equation for the equity asset, I solve for the price-divided ratio as follows:
+		\begin{align*}
+			1 &= \ev\left[\delta \left(\frac{y_1}{y_0}\right)^{\alpha - 1} R_s \right] \\
+			&= \ev\left[\delta \left(\frac{y_1}{y_0}\right)^{\alpha - 1} \frac{d_{s,1}}{P_{s}} \right] \\
+			&= \ev\left[\delta \left(\frac{y_1}{y_0}\right)^{\alpha - 1} \frac{1}{\frac{P_s}{d_{s,0}}} \frac{d_{s,1}}{d_{s,0}} \right] \\
+		\end{align*}
+		and thus
+
+		\begin{equation}
+			\frac{P_s}{d_{s,0}} = \ev\left[\delta \left(\frac{y_1}{y_0}\right)^{\alpha - 1} \frac{d_{s,1}}{d_{s,0}} \right] \label{pd}
+		\end{equation}
+		\item To find the equity risk premium, I impose the equilibrium condition that \(d = c = y\) on (\ref{pd}):
+			
+		\[R_s = \frac{d_{s,1}}{P_s} = \frac{\frac{d_{s,1}}{d_{s,0}}}{\frac{P_s}{d_{s,0}}} = \left( \frac{1}{\ev\left[\delta \left(\frac{y_1}{y_0}\right)^{\alpha - 1} \right]} \right) \left( \frac{y_1}{y_0} \right) \]
+		Thus,
+		\[\log R_s = -\log \ev\left[\delta \left(\frac{y_1}{y_0}\right)^{\alpha - 1} \right] + \log(y_1/y_0)\]
+		Define the excess return as \(\log R_s - \log R_f\). By the above, 
+		\begin{align*}
+			\log R_s - \log R_f\ &= -\log \ev \left[ \left( \frac{y_1}{y_0} \right)^\alpha \right] + \log(y_1/y_0) + \log \ev \left[ \left( \frac{y_1}{y_0} \right)^{\alpha - 1} \right]\\
+			&= -\alpha\tilde{y} - \frac{\alpha^2}{2} \sigma^2_y + (\alpha - 1)\tilde{y} + \frac{(\alpha - 1)^2}{2}\sigma^2_y + \tilde{y} + \frac{1}{2}\sigma^2_y \\
+			&= (1 - \alpha)\sigma^2_y
+		\end{align*}
+		This does not work. Using the form in part (a), a risk free rate of 6\% implies \(\alpha \simeq 46.3\). This implies a very large, negative risk-free rate using the form above. 
+	\end{enumerate}
+
+	\item Here I derive the ``lost'' CAPM.
+	\begin{enumerate}
+		\item No arbitrage implies that 
+		\[\ev[m_{t+1}(R_{n,t+1} - R_f)] = 0\]
+		This implies that 
+		\[\text{cov}_t(m_{t+1}, R_{n,t+1} - R_f) = -\ev_t[m_{t+1}]\ev_t[R_{n,t+1} - R_f]\]
+		With \(R_m\) defined as given, the above is equivalent to 
+		\[\text{cov}(a - b(R_{m,t+1} - R_f) + \varepsilon_{t+1}, R_{n,t+1} - R_f) = -\ev_t[a - b(R_{m,t+1} - R_f) + \varepsilon_{t+1}]\ev_t[R_{n,t+1} - R_f]\]
+		By definition, on the left-hand side above, 
+		\[\text{cov}_t(a, R_{n,t+1} - R_f) = \text{cov}_t(\varepsilon_{t+1}, R_{n,t+1} - R_f) = \text{cov}_t(bR_f, R_{n,t+1} - R_f) = 0\], leaving
+		\begin{align*}
+			b\text{cov}_t(R_{m,t+1},R_{n,t+1}) &= -\ev_t[a - b(R_{m,t+1} - R_f) + \varepsilon_{t+1}]\ev_t[R_{n,t+1} - R_f] \\
+			&= -(a + b\ev_t[R_{m,t+1} - R_f])\ev_t[R_{n,t+1} - R_f]
+		\end{align*}
+		and thus
+		\[\ev_t[R_{n,t+1} - R_f] = \frac{b\text{cov}_t(R_{m,t+1},R_{n,t+1})}{a + b\ev_t[R_{m,t+1} - R_f]}\]
+		Now, if we set \(a = \ev[(R_{m,t+1} - R_f])^2]\) and \(b = \ev_t[R_{m,t+1} - R_f]\), the above becomes
+		\[\ev_t[R_{n,t+1} - R_f] = \frac{\text{cov}_t(R_{m,t+1},R_{n,t+1})}{V(R_{m,t+1})}\ev_t[R_{m,t+1} - R_f]\]
+		the desired result.
+		\item This is not the CAPM--this equiation involves knowing \(R_m\), a proxy for the pricing kernel. This quantity is not observeable in data. 
+		\item \begin{enumerate}[label = (\roman*)]
+			\item Testing the above in the data in this manner is not correct.
+			\item This test ignores the covariance between risk (\(\beta_{t,n}\)) and the price of risk (\(\ev_t[R_{m,t+1} - R_f]\)). 
+		\end{enumerate}
+		\item The ``flat'' empirical observations imply that the covariance between \(\beta\) and the risk premium is positive: stocks with large expected returns (and thus large excess returns) then to have large \(\beta\) values--these stocks are risky. 
+	\end{enumerate}
 \end{enumerate}
 
 \end{document}
